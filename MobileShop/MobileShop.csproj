@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Components\" />
     <Folder Include="Views\Admin\" />
   </ItemGroup>
 
