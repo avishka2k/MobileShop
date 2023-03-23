@@ -1,16 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MobileShop.Data;
 using MobileShop.Models;
+using System.IO;
 
 namespace MobileShop.Controllers
 {
     public class ProductController : Controller
     {
         private readonly ProductDbContext dbContext;
-        public ProductController(ProductDbContext dbContext)
+        private readonly IWebHostEnvironment environment;
+        public ProductController(ProductDbContext dbContext, IWebHostEnvironment environment)
         {
             this.dbContext = dbContext;
+            this.environment = environment;
         }
 
         public static int RandomSKU()
@@ -39,7 +43,6 @@ namespace MobileShop.Controllers
                 Id = Guid.NewGuid(),
                 Title = model.Title,
                 Description = model.Description,
-                PictureUrl = model.PictureUrl,
                 BrandName = model.BrandName,
                 Colors = model.Colors,
                 Reviews = model.Reviews,
@@ -48,8 +51,20 @@ namespace MobileShop.Controllers
                 Stock = model.Stock,
                 Delivery = model.Delivery,
                 SKU = random.ToString(),
-                Tags = model.Tags,
             };
+
+            if (model.PictureFile != null && model.PictureFile.Length > 0)
+            {
+                string fileName = $"{Guid.NewGuid()}{Path.GetExtension(model.PictureFile.FileName)}";
+                string filePath = Path.Combine(environment.WebRootPath, "images", "products", fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.PictureFile.CopyToAsync(stream);
+                }
+
+                product.PictureUrl = $"/images/products/{fileName}";
+            }
             await dbContext.Products.AddAsync(product);
             await dbContext.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -74,7 +89,6 @@ namespace MobileShop.Controllers
                     Price = product.Price,
                     Stock = product.Stock,
                     Delivery = product.Delivery,
-                    Tags = product.Tags,
                 };
                 return await Task.Run(() => View("ViewProduct", viewProduct));
             }
@@ -88,7 +102,6 @@ namespace MobileShop.Controllers
             {
                 product.Title = model.Title;
                 product.Description = model.Description;
-                product.PictureUrl = model.PictureUrl;
                 product.BrandName = model.BrandName;
                 product.Colors = model.Colors;
                 product.Reviews = model.Reviews;
@@ -97,7 +110,7 @@ namespace MobileShop.Controllers
                 product.Stock = model.Stock;
                 product.Delivery = model.Delivery;
                 product.SKU = model.SKU;
-                product.Tags = model.Tags;
+
 
                 await dbContext.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -116,15 +129,6 @@ namespace MobileShop.Controllers
             }
             return RedirectToAction("Index");
         }
-        public async Task<IActionResult> Tags()
-        {
-            var tags = await dbContext.Tags.ToListAsync();
-            return View(tags);
-        }
-        [HttpPost]
-        public ActionResult Tags(TagsModel model)
-        {
-            return RedirectToAction("Tags");
-        }
+
     }
 }

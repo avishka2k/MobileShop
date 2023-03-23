@@ -1,4 +1,7 @@
-﻿namespace MobileShop.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MobileShop.Models
 {
     public class ProductModel
     {
@@ -14,6 +17,8 @@
         public string Stock { get; set; }
         public string Delivery { get; set; }
         public string SKU { get; set; }
-        public string Tags { get; set; }
+        [NotMapped]
+        public IFormFile PictureFile { get; set; }
+
     }
 }

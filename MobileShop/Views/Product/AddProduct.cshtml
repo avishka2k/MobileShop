@@ -59,7 +59,7 @@
 
 </style>
 
-<form method="post" action="AddProduct" class="w-50 m-auto">
+<form method="post" action="AddProduct" class="w-50 m-auto" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="Title" class="form-label">Title</label>
         <input type="text" class="form-control" asp-for="Title">
@@ -67,7 +67,7 @@
     <div class="mb-3">
         <label for="tags" class="form-label">Tags</label>
         <div class="content-style">
-            <div class="tags-ul"><input class="tags-input" type="text" id="tags-value" asp-for="Tags" spellcheck="false"></div>
+            <div class="tags-ul"><input class="tags-input" type="text" id="tags-value"  spellcheck="false"></div>
         </div>
         <div class="details-style">
             <p><span>10</span> tags are remaining</p>
@@ -76,7 +76,7 @@
     
     <div class="mb-3">
         <label for="Image" class="form-label">Image</label>
-        <input type="text" class="form-control" asp-for="PictureUrl">
+        <input type="file" class="form-control" asp-for="PictureFile" id="customFile" />
     </div>
     <div class="mb-3">
         <label for="Description" class="form-label">Description</label>
