@@ -12,8 +12,8 @@ using MobileShop.Data;
 namespace MobileShop.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20230322184005_Initial Migration - product")]
-    partial class InitialMigrationproduct
+    [Migration("20230323145830_Initial Migration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,10 +71,6 @@ namespace MobileShop.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Tags")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -82,40 +78,6 @@ namespace MobileShop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("MobileShop.Models.TagsModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("TagName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TagsModelId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TagsModelId");
-
-                    b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("MobileShop.Models.TagsModel", b =>
-                {
-                    b.HasOne("MobileShop.Models.TagsModel", null)
-                        .WithMany("GetTagsModels")
-                        .HasForeignKey("TagsModelId");
-                });
-
-            modelBuilder.Entity("MobileShop.Models.TagsModel", b =>
-                {
-                    b.Navigation("GetTagsModels");
                 });
 #pragma warning restore 612, 618
         }

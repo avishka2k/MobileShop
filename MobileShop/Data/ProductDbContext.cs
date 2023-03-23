@@ -13,6 +13,5 @@ namespace MobileShop.Data
         {
         }
         public DbSet<ProductModel> Products { get; set; }
-        public DbSet<TagsModel> Tags { get; set; }
     }
 }
