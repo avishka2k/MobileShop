@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using MobileShop.Data;
+
 namespace MobileShop
 {
     public class Program
@@ -8,7 +12,8 @@ namespace MobileShop
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddDbContext<ProductDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ProductDbContext")));
+            //builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddUserStore<AdminDbContext>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

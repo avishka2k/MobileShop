@@ -1,0 +1,6 @@
+﻿@model MobileShop.Models.TagsModel
+
+@Html.DropDownListFor(x => x.Id, Model.GetTagsModels.Select(x => new SelectListItem{ Text = x.TagName, Value = x.TagName}),
+new { @class ="form-control chose-select" })
+
+<input type="submit"/>

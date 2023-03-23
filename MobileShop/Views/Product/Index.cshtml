@@ -1,0 +1,42 @@
+﻿@model List<MobileShop.Models.ProductModel>
+
+
+<h1>Product</h1>
+<div class="table-responsive">
+    <table class="table table-hover text-nowrap align-middle">
+        <thead class="bg-light">
+        <tr>
+            <th>Product</th>
+            <th>SKU</th>
+            <th>Title</th>
+            <th>Stock</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+            @{
+                var index = 0;
+            },
+        @foreach (var product in Model)
+        {
+                index++;
+            <tr class="">
+                <td class="gap-lg-3"><span class="pe-4 fw-bold">@index</span><img style="width: 60px; height: 60px" src="https://mdbootstrap.com/img/new/avatars/8.jpg" /> </td>
+                <td>@product.SKU</td>
+                <td>@product.Title</td>
+                <td>@product.Stock</td>
+                <td>@product.Price</td>
+                <td><a href="Product/ViewProduct/@product.Id">View</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+
+@{
+    //@Html.Raw(product.Description)
+}
+
+            
+  

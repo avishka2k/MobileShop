@@ -1,0 +1,202 @@
+﻿@model MobileShop.Models.ProductModel
+
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.css">
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css">
+<style>
+
+    .content-style .tags-ul {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 3px;
+        margin: 12px 0;
+        border-radius: 5px;
+        border: 1px solid #a6a6a6;
+    }
+
+        .content-style .tags-ul li {
+            color: #333;
+            margin: 3px 3px;
+            list-style: none;
+            border-radius: 5px;
+            background: #F2F2F2;
+            padding: 2px 8px 2px 10px;
+            border: 1px solid #e3e1e1;
+        }
+
+            .content-style .tags-ul li i {
+                height: 20px;
+                width: 20px;
+                color: #808080;
+                margin-left: 8px;
+                font-size: 12px;
+                cursor: pointer;
+                border-radius: 50%;
+                background: #dfdfdf;
+                justify-content: center;
+            }
+
+        .content-style .tags-ul input {
+            flex: 1;
+            padding: 5px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+
+    .details-style {
+        justify-content: space-between;
+    }
+
+        .details-style p {
+            color: red;
+            font-size: 12px;
+        }
+
+    :where( li, li i) {
+        display: flex;
+        align-items: center;
+    }
+
+</style>
+<form method="post" action="../UpdateProduct" class="w-50 m-auto">
+    <div class="mb-3">
+        <label for="id" class="form-label">ID</label>
+        <input type="text" class="form-control" asp-for="Id" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="SKU" class="form-label">SKU</label>
+        <input type="text" class="form-control" asp-for="SKU" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="Title" class="form-label">Title</label>
+        <input type="text" class="form-control" asp-for="Title">
+    </div>
+    <div class="mb-3">
+        <label for="tags" class="form-label">Tags</label>
+        <div class="content-style">
+            <div class="tags-ul"><input id="tags-value" class="tags-input" type="text" asp-for="Tags" spellcheck="false"></div>
+        </div>
+        <div class="details-style">
+            <p><span>10</span> tags are remaining</p>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="Image" class="form-label">Image</label>
+        <input type="text" class="form-control" asp-for="PictureUrl">
+    </div>
+    <div class="mb-3">
+        <label for="Description" class="form-label">Description</label>
+        <textarea asp-for="Description" class="form-control" id="summernote"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="BrandName" class="form-label">Brand Name</label>
+        <input type="text" class="form-control" asp-for="BrandName">
+    </div>
+    <div class="mb-3">
+        <label for="Colors" class="form-label">Colors</label>
+        <input type="text" class="form-control" asp-for="Colors">
+    </div>
+    <div class="mb-3">
+        <label for="Reviews" class="form-label">Reviews</label>
+        <input type="number" class="form-control" asp-for="Reviews">
+    </div>
+    <div class="mb-3">
+        <label for="ReviewScore" class="form-label">ReviewScore</label>
+        <input type="number" class="form-control" asp-for="ReviewScore">
+    </div>
+    <div class="mb-3">
+        <label for="Price" class="form-label">Price ($)</label>
+        <input type="number" class="form-control" asp-for="Price">
+    </div>
+    <div class="mb-3">
+        <label for="Stock" class="form-label">Stock</label>
+        <input type="number" class="form-control" asp-for="Stock">
+    </div>
+    <div class="mb-3">
+        <label for="DeliveryFee" class="form-label">Delivery fee ($)</label>
+        <input type="number" class="form-control" asp-for="Delivery">
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <button type="submit" class="btn btn-danger" asp-action="DeleteProduct" asp-controller="Product">Delete</button>
+
+</form>
+
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.2/tagmanager.min.js"></script>
+
+    <script>
+        $('#summernote').summernote({
+            placeholder: 'Hello stand alone ui',
+            tabsize: 2,
+            height: 120,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    </script>
+    <script type="text/javascript">
+        $(".tm-input").tagsManager();
+    </script>
+
+    <script>
+        const ul = document.querySelector(".tags-ul"),
+            input = document.querySelector(".tags-input"),
+            tagNumb = document.querySelector(".details-style span");
+
+        let maxTags = 5,
+            tags = [];
+
+        document.getElementById("tags-value").value = tags
+
+        countTags();
+        createTag();
+
+        function countTags() {
+            input.focus();
+            tagNumb.innerText = maxTags - tags.length;
+        }
+
+        function createTag() {
+            ul.querySelectorAll("li").forEach(li => li.remove());
+            tags.slice().reverse().forEach(tag => {
+                let liTag = `<li>${tag} <i class="uit uit-multiply" onclick="remove(this, '${tag}')"></i></li>`;
+                ul.insertAdjacentHTML("afterbegin", liTag);
+            });
+            countTags();
+        }
+
+        function remove(element, tag) {
+            let index = tags.indexOf(tag);
+            tags = [...tags.slice(0, index), ...tags.slice(index + 1)];
+            element.parentElement.remove();
+            countTags();
+        }
+
+        function addTag(e) {
+            if (e.key == " ") {
+                let tag = e.target.value.replace(/\s+/g, ' ');
+                if (tag.length > 1 && !tags.includes(tag)) {
+                    if (tags.length < maxTags) {
+                        tag.split(',').forEach(tag => {
+                            tags.push(tag);
+                            createTag();
+                        });
+                    }
+                }
+                e.target.value = "";
+            }
+        }
+
+        input.addEventListener("keyup", addTag);
+
+    </script>
+}
