@@ -1,0 +1,226 @@
+﻿@model ShopAdmin.Models.Product
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+    <div class="dashboard-wrapper">
+        <div class="container-fluid dashboard-content">
+            <!-- ============================================================== -->
+            <!-- pageheader -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="page-header">
+                        <h2 class="pageheader-title">Edit Product</h2>
+                        <p class="pageheader-text">
+                            Proin placerat ante duiullam scelerisque a velit ac porta,
+                            fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.
+                        </p>
+                        <div class="page-breadcrumb">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="#" class="breadcrumb-link">Dashboard</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Edit Product
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end pageheader -->
+            <!-- ============================================================== -->
+
+            <div class="row">
+                <!-- ============================================================== -->
+                <!-- validation form -->
+                <!-- ============================================================== -->
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form asp-action="Edit" class="needs-validation" novalidate>
+                                <div class="row pb-3">
+                                    <div class="col">
+                                        <div class="row pb-3">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <label for="validationCustom01">Title</label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       id="validationCustom01"
+                                                       placeholder="Title"
+                                                       asp-for="Title"
+                                                       required />
+                                                <div class="valid-feedback">Looks good!</div>
+                                            </div>
+                                        </div>
+                                        <div class="row pb-3">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <label for="validationCustom02">Brand Name</label>
+                                                <select class="form-control"
+                                                        id="validationCustom02"
+                                                        asp-for="BrandName"
+                                                        required aria-label="Default select example">
+                                                    <option selected>Open this select menu</option>
+                                                    <option value="Samsung">Samsung</option>
+                                                    <option value="Apple">Apple</option>
+                                                    <option value="Xiaomi">Xiaomi</option>
+                                                    <option value="Oppo">Oppo</option>
+                                                    <option value="Huawei">Huawei</option>
+                                                    <option value="Vivo">Vivo</option>
+                                                    <option value="NOKIA">NOKIA</option>
+                                                    <option value="LG">LG</option>
+                                                    <option value="Motorola Mobility (Lenovo)">Motorola Mobility (Lenovo)</option>
+                                                    <option value="Transsion (Tecno, Itel)">Transsion (Tecno, Itel)</option>
+                                                </select>
+
+                                                <div class="valid-feedback">Looks good!</div>
+                                            </div>
+                                        </div>
+                                        <div class="row pb-3">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <label for="validationCustom03">Picture</label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       id="validationCustom03"
+                                                       placeholder="Picture"
+                                                       asp-for="PictureUrl"
+                                                       required />
+                                                <div class="valid-feedback">Looks good!</div>
+                                            </div>
+                                        </div>
+                                        <div class="row pb-3">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <label for="validationCustom04">Colors</label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       id="validationCustom04"
+                                                       asp-for="Colors"
+                                                       placeholder="Colors"
+                                                       required />
+                                                <div class="valid-feedback">Looks good!</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <label for="summernote">Description</label>
+                                            <textarea asp-for="Description" class="form-control" placeholder="Description" id="summernote" required></textarea>
+                                            <div class="valid-feedback">Looks good!</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row pb-3">
+                                    <div class="col">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <label for="validationCustom05">Price($)</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="validationCustom05"
+                                                   placeholder="Price"
+                                                   asp-for="Price"
+                                                   required />
+                                            <div class="valid-feedback">Looks good!</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <label for="validationCustom06">Delivery fee($)</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="validationCustom06"
+                                                   asp-for="Delivery"
+                                                   placeholder="Delivery"
+                                                   required />
+                                            <div class="valid-feedback">Looks good!</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <label for="validationCustom07">Stock</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="validationCustom07"
+                                                   asp-for="Stock"
+                                                   placeholder="Stock"
+                                                   required />
+                                            <div class="valid-feedback">Looks good!</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row pb-3">
+                                    <div class="col">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <label for="validationCustom08">Reviews</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="validationCustom08"
+                                                   placeholder="Reviews"
+                                                   asp-for="Reviews"
+                                                   required />
+                                            <div class="valid-feedback">Looks good!</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <label for="validationCustom09">ReviewScore</label>
+                                            <select class="form-control"
+                                                    id="validationCustom09"
+                                                    asp-for="ReviewScore"
+                                                    required aria-label="Default select example">
+                                                <option selected>Select Score</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="2.5">2.5</option>
+                                                <option value="3">3</option>
+                                                <option value="3.5">3.5</option>
+                                                <option value="4">4</option>
+                                                <option value="4.2">4.2</option>
+                                                <option value="4.5">4.5</option>
+                                                <option value="4.7">4.7</option>
+                                                <option value="4.9">4.9</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                            <div class="valid-feedback">Looks good!</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <label for="validationCustom08">SKU</label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   id="validationCustom08"
+                                                   placeholder="SKU"
+                                                   asp-for="SKU"
+                                                   required />
+                                            <div class="valid-feedback">Looks good!</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <a asp-action="Index" type="button" class="btn btn-light">Cancel</a>
+                                <button class="btn btn-primary" type="submit">
+                                        Update Product
+                                    </button> 
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end validation form -->
+                <!-- ============================================================== -->
+            </div>
+        </div>
+    </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

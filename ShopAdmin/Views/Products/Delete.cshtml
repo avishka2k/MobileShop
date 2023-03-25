@@ -1,0 +1,47 @@
+﻿@model ShopAdmin.Models.Product
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="dashboard-wrapper">
+        <div class="container-fluid dashboard-content">
+            <!-- ============================================================== -->
+            <!-- pageheader -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="page-header">
+                        <h2 class="pageheader-title">Delete Product: @Html.DisplayFor(model => model.SKU)</h2>
+                        <p class="pageheader-text">
+                            Proin placerat ante duiullam scelerisque a velit ac porta,
+                            fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.
+                        </p>
+                        <div class="page-breadcrumb">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="#" class="breadcrumb-link">Dashboard</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Delete Product
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end pageheader -->
+            <!-- ============================================================== -->
+
+            <h3>Are you sure you want to delete this?</h3>
+            <h4 class="pb-4 pt-2">Delete Prodcut: @Html.DisplayFor(model => model.Title)</h4>
+            <form asp-action="Delete">
+                <a asp-action="Index" type="button" class="btn btn-light">Cancel</a>
+              
+                <input type="submit" value="Delete" class="btn btn-danger" /> 
+            </form>
+        </div>
+ </div>
