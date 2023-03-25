@@ -1,6 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShopAdmin.Models
+
+namespace ShopAdmin.Models
+
 {
     public class Product
     {
@@ -16,6 +20,5 @@ namespace ShopAdmin.Models
         public string Stock { get; set; }
         public string Delivery { get; set; }
         public string SKU { get; set; }
-        
     }
 }

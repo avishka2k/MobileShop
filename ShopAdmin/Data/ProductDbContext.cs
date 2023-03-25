@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ShopAdmin.Models;
+
+using System.Collections.Generic;
+
 
 namespace ShopAdmin.Data
 {
