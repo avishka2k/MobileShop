@@ -1,4 +1,10 @@
-﻿namespace ShopAdmin.Models
+
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ShopAdmin.Models
+
+namespace ShopAdmin.Models
+
 {
     public class Product
     {
