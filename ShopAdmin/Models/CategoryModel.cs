@@ -7,7 +7,5 @@ namespace ShopAdmin.Models
 
         public string? Description { get; set; }       
 
-        public string? Description { get; set; }
-
     }
 }
