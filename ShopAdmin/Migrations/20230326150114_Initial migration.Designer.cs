@@ -11,7 +11,7 @@ using ShopAdmin.Data;
 namespace ShopAdmin.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20230325070530_Initial migration")]
+    [Migration("20230326150114_Initial migration")]
     partial class Initialmigration
     {
         /// <inheritdoc />
