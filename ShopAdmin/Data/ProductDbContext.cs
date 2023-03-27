@@ -16,7 +16,7 @@ namespace ShopAdmin.Data
         {
         }
         public DbSet<Product> Products { get; set; }
-        public DbSet<CategoryModel> Categories { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 
 }

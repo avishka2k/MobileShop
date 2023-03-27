@@ -1,0 +1,125 @@
+﻿@model ShopAdmin.Models.Category
+
+@{
+    ViewData["Title"] = "Category Create";
+}
+
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <!-- ============================================================== -->
+        <!-- pageheader -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Add Category</h2>
+                    <p class="pageheader-text">
+                        Proin placerat ante duiullam scelerisque a velit ac porta,
+                        fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.
+                    </p>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a asp-action="Index" class="breadcrumb-link">Category</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Add Category
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader -->
+        <!-- ============================================================== -->
+
+        <div class="row">
+            <!-- ============================================================== -->
+            <!-- validation form -->
+            <!-- ============================================================== -->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form asp-action="Create" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
+                            <div class="col">
+                                <div class="row pb-3">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <label for="validationCustom01">Category Name</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="validationCustom01"
+                                               placeholder="Name"
+                                               asp-for="Name"
+                                               required />
+                                        <div class="valid-feedback">Looks good!</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row pb-3">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <label for="validationCustom03">Description</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="validationCustom03"
+                                               placeholder="Description"
+                                               asp-for="Description"
+                                               required />
+                                        <div class="valid-feedback">Looks good!</div>
+                                    </div>
+                                </div>
+                                <div class="row pb-3">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <label for="validationCustom04">Picture</label>
+                                        <input type="file"
+                                               class="form-control"
+                                               id="validationCustom04"
+                                               asp-for="PictureFile"
+                                               placeholder="Picture"
+                                               required />
+                                        <div class="valid-feedback">Looks good!</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <button class="btn btn-primary" type="submit">
+                                    Submit form
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end validation form -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

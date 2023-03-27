@@ -12,19 +12,19 @@
             <div class="row">
                 <div class="col-xl col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <h2 class="pageheader-title">Product Table</h2>
+                        <h2 class="pageheader-title">Products</h2>
                         <div class="page-breadcrumb">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="#" class="breadcrumb-link">Dashboard</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">
-                                        Product Table
+                                    <a asp-action="Index" class="breadcrumb-link">Products</a>
                                     </li>
                                 </ol>
                             </nav>
                         </div>
+                    <div class="page-breadcrumb float-right pb-3">
+                        <a class="btn btn-primary" asp-controller="Products" asp-action="Create">New Product</a>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -109,34 +109,6 @@
                                             </tr>
                                         }
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.SKU)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.Title)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.BrandName)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.ReviewScore)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.Price)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.Stock)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.Delivery)
-                                            </th>
-                                            <th></th>
-                                        </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                         </div>

@@ -13,20 +13,18 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title">E-commerce Product Single</h2>
-                            <p class="pageheader-text">
-                                Nulla euismod urna eros, sit amet scelerisque torton lectus
-                                vel mauris facilisis faucibus at enim quis massa lobortis
-                                rutrum.
-                            </p>
+                        <h2 class="pageheader-title">Product: @Html.DisplayFor(model => model.Title)</h2>
                             <div class="page-breadcrumb">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item">
-                                            <a href="#" class="breadcrumb-link">E-coommerce</a>
+                                            <a href="#" class="breadcrumb-link">Products</a>
+                                        </li>
+                                        <li class="breadcrumb-item">
+                                            <a href="#" class="breadcrumb-link">@Html.DisplayFor(model => model.Id)</a>
                                         </li>
                                         <li class="breadcrumb-item active" aria-current="page">
-                                            E-Commerce Product Single
+                                            Details
                                         </li>
                                     </ol>
                                 </nav>
