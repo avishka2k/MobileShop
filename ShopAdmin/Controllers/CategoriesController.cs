@@ -15,7 +15,6 @@ namespace ShopAdmin.Controllers
         private readonly ProductDbContext _context;
         private readonly IWebHostEnvironment environment;
 
-
         public CategoriesController(ProductDbContext context, IWebHostEnvironment environment)
         {
             _context = context;
