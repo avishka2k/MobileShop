@@ -78,6 +78,21 @@ namespace ShopAdmin.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> Edit(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return View(category);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Edit(Category model)
         {
@@ -86,7 +101,30 @@ namespace ShopAdmin.Controllers
             {
                 category.Name = model.Name;
                 category.Description = model.Description;
-                category.PictureUrl = model.PictureUrl;
+
+        
+
+                if (model.PictureFile != null && model.PictureFile.Length > 0)
+                {
+                    if (!string.IsNullOrEmpty(category.PictureUrl))
+                    {
+                        string filePat = Path.Combine(environment.WebRootPath, category.PictureUrl.TrimStart('/'));
+                        if (System.IO.File.Exists(filePat))
+                        {
+                            System.IO.File.Delete(filePat);
+                        }
+                    }
+
+                    string fileName = $"{Guid.NewGuid()}{Path.GetExtension(model.PictureFile.FileName)}";
+                    string filePath = Path.Combine(environment.WebRootPath, "images", "categories", fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await model.PictureFile.CopyToAsync(stream);
+                    }
+
+                    category.PictureUrl = $"/images/categories/{fileName}";
+                }
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -122,6 +160,15 @@ namespace ShopAdmin.Controllers
             var category = await _context.Categories.FindAsync(id);
             if (category != null)
             {
+
+                if (!string.IsNullOrEmpty(category.PictureUrl))
+                {
+                    string filePat = Path.Combine(environment.WebRootPath, category.PictureUrl.TrimStart('/'));
+                    if (System.IO.File.Exists(filePat))
+                    {
+                        System.IO.File.Delete(filePat);
+                    }
+                }
                 _context.Categories.Remove(category);
             }
 
