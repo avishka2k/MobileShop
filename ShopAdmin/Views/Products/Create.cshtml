@@ -4,6 +4,12 @@
     ViewData["Title"] = "Create";
 }
 
+<style>
+    .list-group img {
+        width:100px;
+    }
+</style>
+
 
     <div class="dashboard-wrapper">
         <div class="container-fluid dashboard-content">
@@ -44,7 +50,7 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form asp-action="Create" class="needs-validation" novalidate>
+                        <form asp-action="Create" class="needs-validation" enctype="multipart/form-data" novalidate>
                                 <div class="row pb-3">
                                     <div class="col">
                                         <div class="row pb-3">
@@ -85,13 +91,12 @@
                                         <div class="row pb-3">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                                 <label for="validationCustom03">Picture</label>
-                                                <input type="text"
+                                            <input type="file" name="Images"
                                                        class="form-control"
                                                        id="validationCustom03"
                                                        placeholder="Picture"
-                                                       asp-for="PictureUrl"
-                                                       required />
-                                                <div class="valid-feedback">Looks good!</div>
+                                                       required multiple/>
+                                            <ul id="image-list"></ul>
                                             </div>
                                         </div>
                                         <div class="row pb-3">
@@ -222,4 +227,19 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <script>
+            $('input[name="Images"]').change(function () {
+                var files = $(this).prop('files');
+                $.each(files, function (index, file) {
+                    var reader = new FileReader();
+                    reader.onload = function (event) {
+                        var imageSrc = event.target.result;
+                        var imageName = file.name;
+                        var listItem = '<div class="list-group"><button type="button" class="list-group-item align-items-center list-group-item d-flex gap-3 list-group-item-action" disabled><img src="' + imageSrc + '" alt="' + imageName + '" /><br />' + imageName + '<br /></button></div>';
+                        $('#image-list').append(listItem);
+                    }
+                    reader.readAsDataURL(file);
+                });
+            });
+        </script>
 }

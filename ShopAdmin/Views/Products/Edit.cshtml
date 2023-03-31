@@ -88,13 +88,12 @@
                                         <div class="row pb-3">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                                 <label for="validationCustom03">Picture</label>
-                                                <input type="text"
+                                            <input type="file" name="Images"
                                                        class="form-control"
                                                        id="validationCustom03"
                                                        placeholder="Picture"
-                                                       asp-for="PictureUrl"
-                                                       required />
-                                                <div class="valid-feedback">Looks good!</div>
+                                                       required multiple/>
+                                            <ul id="image-list"></ul>
                                             </div>
                                         </div>
                                         <div class="row pb-3">

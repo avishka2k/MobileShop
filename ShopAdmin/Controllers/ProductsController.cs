@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using ShopAdmin.Data;
 using ShopAdmin.Models;
 
@@ -13,10 +14,12 @@ namespace ShopAdmin.Controllers
     public class ProductsController : Controller
     {
         private readonly ProductDbContext _context;
+        private readonly IWebHostEnvironment environment;
 
-        public ProductsController(ProductDbContext context)
+        public ProductsController(ProductDbContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            this.environment = environment;
         }
 
         // GET: Products
@@ -55,16 +58,30 @@ namespace ShopAdmin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,PictureUrl,BrandName,Colors,Reviews,ReviewScore,Price,Stock,Delivery,SKU")] Product product)
+        public async Task<IActionResult> Create(Product product, List<IFormFile> Images)
         {
-            if (ModelState.IsValid)
+            await _context.Products.AddAsync(product);
+            _context.SaveChanges();
+
+            foreach (var image in Images)
             {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (image.Length > 0)
+                {
+                    var fileName = Path.GetFileName(image.FileName);
+                    var filePath = Path.Combine(environment.WebRootPath, "images", "products", fileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await image.CopyToAsync(fileStream);
+                    }
+
+                    var newImage = new Image { Name = fileName, Url = "/images/products/" + fileName, ProductId = product.Id };
+                    _context.Images.Add(newImage);
+                }
             }
-            return View(product);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Products/Edit/5
@@ -88,7 +105,7 @@ namespace ShopAdmin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,PictureUrl,BrandName,Colors,Reviews,ReviewScore,Price,Stock,Delivery,SKU")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,BrandName,Colors,Reviews,ReviewScore,Price,Stock,Delivery,SKU")] Product product)
         {
             if (id != product.Id)
             {
@@ -143,17 +160,34 @@ namespace ShopAdmin.Controllers
         {
             if (_context.Products == null)
             {
-                return Problem("Entity set 'ProductDbContext.Products'  is null.");
+                return Problem("Entity set 'ProductDbContext.Products' is null.");
             }
+
             var product = await _context.Products.FindAsync(id);
-            if (product != null)
+            if (product == null)
             {
-                _context.Products.Remove(product);
+                return NotFound();
             }
-            
+
+            // Delete associated images
+            var images = await _context.Images.Where(i => i.ProductId == product.Id).ToListAsync();
+            foreach (var image in images)
+            {
+                
+                string filePath = Path.Combine(environment.WebRootPath, image.Url.TrimStart('/'));
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+                _context.Images.Remove(image);
+            }
+
+            _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool ProductExists(int id)
         {

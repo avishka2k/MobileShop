@@ -9,7 +9,6 @@ namespace ShopAdmin.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public string PictureUrl { get; set; }
         public string BrandName { get; set; }
         public string Colors { get; set; }
         public string Reviews { get; set; }
@@ -18,5 +17,6 @@ namespace ShopAdmin.Models
         public string Stock { get; set; }
         public string Delivery { get; set; }
         public string SKU { get; set; }
+        public List<Image> Images { get; set; }
     }
 }
