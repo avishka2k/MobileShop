@@ -5,47 +5,42 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using ShopAdmin.Data;
 using ShopAdmin.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ShopAdmin.Controllers
 {
-    public class CategoriesController : Controller
+    public class BrandsController : Controller
     {
         private readonly ProductDbContext _context;
         private readonly IWebHostEnvironment environment;
 
-        public CategoriesController(ProductDbContext context, IWebHostEnvironment environment)
+        public BrandsController(ProductDbContext context, IWebHostEnvironment environment)
         {
             _context = context;
             this.environment = environment;
         }
 
-
-        //get all items
-        [HttpGet]
+        // GET: Brands
         public async Task<IActionResult> Index()
         {
-            
-            var category = await _context.Categories.Include(c => c.Products).ToListAsync();
-            //var category = await _context.Categories.ToListAsync();
-            return View(category);
+
+            var brand = await _context.Brands.Include(c => c.Products).ToListAsync();
+            //var brand = await _context.Brands.ToListAsync();
+            return View(brand);
         }
-        [HttpGet]
-        public IActionResult Error()
-        {
-            return View();
-        }
-        [HttpGet]
+
         public IActionResult Create()
         {
-            ViewData["Categories"] = _context.Categories.ToList();
+            ViewData["Brands"] = _context.Brands.ToList();
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Category model)
+        public async Task<IActionResult> Create(Brand model)
         {
-            var category = new Category()
+            var brand = new Brand()
             {
                 Name = model.Name,
 
@@ -54,16 +49,16 @@ namespace ShopAdmin.Controllers
             if (model.PictureFile != null && model.PictureFile.Length > 0)
             {
                 string fileName = $"{Guid.NewGuid()}{Path.GetExtension(model.PictureFile.FileName)}";
-                string filePath = Path.Combine(environment.WebRootPath, "images", "categories", fileName);
+                string filePath = Path.Combine(environment.WebRootPath, "images", "brands", fileName);
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await model.PictureFile.CopyToAsync(stream);
                 }
 
-                category.PictureUrl = $"/images/categories/{fileName}";
+                brand.PictureUrl = $"/images/brands/{fileName}";
             }
-            await _context.Categories.AddAsync(category);
+            await _context.Brands.AddAsync(brand);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -74,27 +69,27 @@ namespace ShopAdmin.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            var brand = await _context.Brands.FindAsync(id);
+            if (brand == null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(brand);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Category model)
+        public async Task<IActionResult> Edit(Brand model)
         {
-            var category = await _context.Categories.FindAsync(model.Id);
-            if (category != null)
+            var brand = await _context.Brands.FindAsync(model.Id);
+            if (brand != null)
             {
-                category.Name = model.Name;
+                brand.Name = model.Name;
 
                 if (model.PictureFile != null && model.PictureFile.Length > 0)
                 {
-                    if (!string.IsNullOrEmpty(category.PictureUrl))
+                    if (!string.IsNullOrEmpty(brand.PictureUrl))
                     {
-                        string filePat = Path.Combine(environment.WebRootPath, category.PictureUrl.TrimStart('/'));
+                        string filePat = Path.Combine(environment.WebRootPath, brand.PictureUrl.TrimStart('/'));
                         if (System.IO.File.Exists(filePat))
                         {
                             System.IO.File.Delete(filePat);
@@ -102,14 +97,14 @@ namespace ShopAdmin.Controllers
                     }
 
                     string fileName = $"{Guid.NewGuid()}{Path.GetExtension(model.PictureFile.FileName)}";
-                    string filePath = Path.Combine(environment.WebRootPath, "images", "categories", fileName);
+                    string filePath = Path.Combine(environment.WebRootPath, "images", "brands", fileName);
 
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         await model.PictureFile.CopyToAsync(stream);
                     }
 
-                    category.PictureUrl = $"/images/categories/{fileName}";
+                    brand.PictureUrl = $"/images/brands/{fileName}";
                 }
 
                 await _context.SaveChangesAsync();
@@ -119,19 +114,19 @@ namespace ShopAdmin.Controllers
         }
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Categories == null)
+            if (id == null || _context.Brands == null)
             {
                 return NotFound();
             }
 
-            var category = await _context.Categories
+            var brand = await _context.Brands
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (brand == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(brand);
         }
 
         // POST: Products/Delete/5
@@ -139,37 +134,37 @@ namespace ShopAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Categories == null)
+            if (_context.Brands == null)
             {
                 return Problem("Entity set 'ProductDbContext.Products' is null.");
             }
 
-            var category = await _context.Categories
+            var brand = await _context.Brands
                 .Include(c => c.Products)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (category == null)
+            if (brand == null)
             {
                 return NotFound();
             }
 
-            if (category.Products.Count > 0)
+            if (brand.Products.Count > 0)
             {
-                ViewData["ErrorMessage"] = "Cannot delete category because it has associated products.";
+                ViewData["ErrorMessage"] = "Cannot delete Brand because it has associated products.";
                 return RedirectToAction(nameof(Error));
             }
 
             try
             {
-                if (!string.IsNullOrEmpty(category.PictureUrl))
+                if (!string.IsNullOrEmpty(brand.PictureUrl))
                 {
-                    string filePat = Path.Combine(environment.WebRootPath, category.PictureUrl.TrimStart('/'));
+                    string filePat = Path.Combine(environment.WebRootPath, brand.PictureUrl.TrimStart('/'));
                     if (System.IO.File.Exists(filePat))
                     {
                         System.IO.File.Delete(filePat);
                     }
                 }
-                _context.Categories.Remove(category);
+                _context.Brands.Remove(brand);
             }
             catch (Exception ex)
             {
@@ -179,6 +174,5 @@ namespace ShopAdmin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
     }
 }

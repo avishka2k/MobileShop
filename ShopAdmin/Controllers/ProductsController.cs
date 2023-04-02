@@ -26,6 +26,8 @@ namespace ShopAdmin.Controllers
         public async Task<IActionResult> Index()
         {
             var product = await _context.Products.Include(c => c.Category).ToListAsync();
+            var brand  = await _context.Products.Include(c => c.Brand).ToListAsync();
+
             //var category = await _context.Categories.ToListAsync();
             return View(product);
         }
@@ -49,18 +51,15 @@ namespace ShopAdmin.Controllers
             return View(product);
         }
 
-
-
         // GET: Products/Create
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+            ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name");
             return View();
         }
 
         // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         public async Task<IActionResult> Create(Product product, List<IFormFile> Images)
         {
@@ -89,13 +88,14 @@ namespace ShopAdmin.Controllers
             }
 
             await _context.SaveChangesAsync();
-
             return RedirectToAction(nameof(Index));
         }
 
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+            ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name");
             if (id == null || _context.Products == null)
             {
                 return NotFound();

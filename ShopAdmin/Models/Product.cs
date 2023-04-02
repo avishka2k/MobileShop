@@ -9,7 +9,6 @@ namespace ShopAdmin.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public string BrandName { get; set; }
         public string Colors { get; set; }
         public string Reviews { get; set; }
         public string ReviewScore { get; set; }
@@ -19,6 +18,8 @@ namespace ShopAdmin.Models
         public string SKU { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public int BrandId { get; set; }
+        public Brand Brand { get; set; }
         public List<Image> Images { get; set; }
         public string FirstImageUrl { get; set; }
     }

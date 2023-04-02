@@ -1,7 +1,7 @@
-﻿@model ShopAdmin.Models.Category
+﻿@model ShopAdmin.Models.Brand
 
 @{
-    ViewData["Title"] = "Category Create";
+    ViewData["Title"] = "Brand Create";
 }
 
 
@@ -13,15 +13,15 @@
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
-                    <h2 class="pageheader-title">Edit Category</h2>
+                    <h2 class="pageheader-title">Add Brand</h2>
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a asp-action="Index" class="breadcrumb-link">Category</a>
+                                    <a asp-action="Index" class="breadcrumb-link">Brand</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Edit Category
+                                    Add Brand
                                 </li>
                             </ol>
                         </nav>
@@ -40,7 +40,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card w-50">
                     <div class="card-body">
-                        <form asp-action="Edit" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
+                        <form asp-action="Create" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
                             <div class="col">
                                 <div class="row pb-3">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -56,12 +56,12 @@
                                 </div>
                                 <div class="row pb-3">
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                        <label for="validationCustom04">Picture</label>
+                                        <label for="validationCustom04">Logo</label>
                                         <input type="file"
                                                class="form-control"
                                                id="validationCustom04"
                                                asp-for="PictureFile"
-                                               placeholder="Picture"
+                                               placeholder="Logo"
                                                required />
                                         <div class="valid-feedback">Looks good!</div>
                                     </div>

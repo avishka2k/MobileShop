@@ -15,6 +15,7 @@ namespace ShopAdmin.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Brand> Brands { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,7 +29,13 @@ namespace ShopAdmin.Data
                .WithMany(c => c.Products)
                .HasForeignKey(p => p.CategoryId)
                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Product>()
+               .HasOne(p => p.Brand)
+               .WithMany(c => c.Products)
+               .HasForeignKey(p => p.BrandId)
+               .OnDelete(DeleteBehavior.Restrict);
         }
+
     }
 
 }
