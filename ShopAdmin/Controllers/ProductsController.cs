@@ -25,9 +25,9 @@ namespace ShopAdmin.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-              return _context.Products != null ? 
-                          View(await _context.Products.ToListAsync()) :
-                          Problem("Entity set 'ProductDbContext.Products'  is null.");
+            var product = await _context.Products.Include(c => c.Category).ToListAsync();
+            //var category = await _context.Categories.ToListAsync();
+            return View(product);
         }
 
         // GET: Products/Details/5
@@ -38,19 +38,23 @@ namespace ShopAdmin.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var product = await _context.Products.Include(p => p.Images).FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
                 return NotFound();
             }
 
+            ViewBag.Images = product.Images.ToList();
+
             return View(product);
         }
+
+
 
         // GET: Products/Create
         public IActionResult Create()
         {
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
             return View();
         }
 
@@ -60,6 +64,10 @@ namespace ShopAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Product product, List<IFormFile> Images)
         {
+            var guid = $"{Guid.NewGuid()}";
+
+            product.FirstImageUrl = $"/images/products/{guid}_{Images[0].FileName}";
+
             await _context.Products.AddAsync(product);
             _context.SaveChanges();
 
@@ -67,18 +75,19 @@ namespace ShopAdmin.Controllers
             {
                 if (image.Length > 0)
                 {
-                    var fileName = Path.GetFileName(image.FileName);
+                    var fileName = $"{guid}_{Path.GetFileName(image.FileName)}";
                     var filePath = Path.Combine(environment.WebRootPath, "images", "products", fileName);
 
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await image.CopyToAsync(fileStream);
                     }
-
                     var newImage = new Image { Name = fileName, Url = "/images/products/" + fileName, ProductId = product.Id };
-                    _context.Images.Add(newImage);
+                   
+                    _context.Images.Add(newImage);                    
                 }
             }
+
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

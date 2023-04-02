@@ -47,14 +47,18 @@
                                         <tr>
                                             <th>                                               
                                             </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.SKU)
-                                            </th>
+                                            
                                             <th>
                                                 @Html.DisplayNameFor(model => model.Title)
                                             </th>
                                             <th>
                                                 @Html.DisplayNameFor(model => model.BrandName)
+                                            </th>
+                                            <th>
+                                            Category
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.SKU)
                                             </th>
                                             <th>
                                                 @Html.DisplayNameFor(model => model.ReviewScore)
@@ -76,16 +80,22 @@
                                         {
                                             <tr>
                                                 <td>
-                                                    
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.SKU)
-                                                </td>
+                                                <img width="75" src="@item.FirstImageUrl" alt="@item.Title" />
+                                                </td>                                                
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.Title)
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.BrandName)
+                                                </td>
+                                                 <td>
+                                                @if (item.Category != null)
+                                                {
+                                                    @Html.DisplayFor(modelItem => item.Category.Name)
+                                                }
+                                                </td>
+                                                <td>
+                                                @Html.DisplayFor(modelItem => item.SKU)
                                                 </td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.ReviewScore)

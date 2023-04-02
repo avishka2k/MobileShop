@@ -26,12 +26,20 @@ namespace ShopAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var category = await _context.Categories.ToListAsync();
+            
+            var category = await _context.Categories.Include(c => c.Products).ToListAsync();
+            //var category = await _context.Categories.ToListAsync();
             return View(category);
+        }
+        [HttpGet]
+        public IActionResult Error()
+        {
+            return View();
         }
         [HttpGet]
         public IActionResult Create()
         {
+            ViewData["Categories"] = _context.Categories.ToList();
             return View();
         }
         [HttpPost]
@@ -39,9 +47,7 @@ namespace ShopAdmin.Controllers
         {
             var category = new Category()
             {
-                Id = Guid.NewGuid(),
                 Name = model.Name,
-                Description = model.Description,
 
             };
 
@@ -62,7 +68,7 @@ namespace ShopAdmin.Controllers
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
-        public async Task<IActionResult> Details(Guid id)
+        public async Task<IActionResult> Details(int id)
         {
             var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);
             if (category != null)
@@ -71,7 +77,6 @@ namespace ShopAdmin.Controllers
                 {
                     Id = category.Id,
                     Name = category.Name,
-                    Description = category.Description,
                     PictureUrl = category.PictureUrl,
                 };
                 return await Task.Run(() => View("Details", viewProduct));
@@ -100,9 +105,6 @@ namespace ShopAdmin.Controllers
             if (category != null)
             {
                 category.Name = model.Name;
-                category.Description = model.Description;
-
-        
 
                 if (model.PictureFile != null && model.PictureFile.Length > 0)
                 {
@@ -131,7 +133,7 @@ namespace ShopAdmin.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Categories == null)
             {
@@ -151,16 +153,30 @@ namespace ShopAdmin.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Categories == null)
             {
-                return Problem("Entity set 'ProductDbContext.Products'  is null.");
+                return Problem("Entity set 'ProductDbContext.Products' is null.");
             }
-            var category = await _context.Categories.FindAsync(id);
-            if (category != null)
-            {
 
+            var category = await _context.Categories
+                .Include(c => c.Products)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            if (category.Products.Count > 0)
+            {
+                ViewData["ErrorMessage"] = "Cannot delete category because it has associated products.";
+                return RedirectToAction(nameof(Error));
+            }
+
+            try
+            {
                 if (!string.IsNullOrEmpty(category.PictureUrl))
                 {
                     string filePat = Path.Combine(environment.WebRootPath, category.PictureUrl.TrimStart('/'));
@@ -171,9 +187,14 @@ namespace ShopAdmin.Controllers
                 }
                 _context.Categories.Remove(category);
             }
+            catch (Exception ex)
+            {
+                // Handle the exception.
+            }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
     }
 }

@@ -53,7 +53,7 @@
                                             @Html.DisplayNameFor(model => model.Name)
                                         </th>
                                         <th>
-                                            @Html.DisplayNameFor(model => model.Description)
+                                            Available Product
                                         </th>
                                         <th></th>
                                     </tr>
@@ -67,7 +67,7 @@
                                         @Html.DisplayFor(modelItem => item.Name)
                                       </td>
                                       <td>
-                                        @Html.DisplayFor(modelItem => item.Description)
+                                        @item.Products.Count()
                                       </td>
                                       <td>
                                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="far fa-edit text-primary mr-4"></i></a>
@@ -87,10 +87,3 @@
         </div>
         </div>
     </div>
-
-
-
-
-
-
-

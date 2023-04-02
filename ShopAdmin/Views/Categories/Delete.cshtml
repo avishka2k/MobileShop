@@ -44,3 +44,8 @@
         </form>
     </div>
 </div>
+
+@if (ViewData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@ViewData["ErrorMessage"]</div>
+}

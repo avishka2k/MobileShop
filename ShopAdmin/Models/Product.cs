@@ -17,6 +17,9 @@ namespace ShopAdmin.Models
         public string Stock { get; set; }
         public string Delivery { get; set; }
         public string SKU { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
         public List<Image> Images { get; set; }
+        public string FirstImageUrl { get; set; }
     }
 }
