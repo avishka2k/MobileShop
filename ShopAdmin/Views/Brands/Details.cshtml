@@ -1,4 +1,4 @@
-﻿@model ShopAdmin.Models.Category
+﻿@model ShopAdmin.Models.Brand
 
 @{
     ViewData["Title"] = "Details";
@@ -7,19 +7,19 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Category</h4>
+    <h4>Brand</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.PictureUrl)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PictureUrl)
         </dd>
     </dl>

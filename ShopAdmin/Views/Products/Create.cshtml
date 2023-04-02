@@ -68,23 +68,7 @@
                                     <div class="row pb-3">
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                             <label for="validationCustom02">Brand Name</label>
-                                            <select class="form-control"
-                                                    id="validationCustom02"
-                                                    asp-for="BrandName"
-                                                    required aria-label="Default select example">
-                                                <option selected>Open this select menu</option>
-                                                <option value="Samsung">Samsung</option>
-                                                <option value="Apple">Apple</option>
-                                                <option value="Xiaomi">Xiaomi</option>
-                                                <option value="Oppo">Oppo</option>
-                                                <option value="Huawei">Huawei</option>
-                                                <option value="Vivo">Vivo</option>
-                                                <option value="NOKIA">NOKIA</option>
-                                                <option value="LG">LG</option>
-                                                <option value="Motorola Mobility (Lenovo)">Motorola Mobility (Lenovo)</option>
-                                                <option value="Transsion (Tecno, Itel)">Transsion (Tecno, Itel)</option>
-                                            </select>
-
+                                            <select asp-for="BrandId" class="form-control" asp-items="@ViewBag.BrandId"></select>
                                             <div class="valid-feedback">Looks good!</div>
                                         </div>
                                     </div>
