@@ -6,32 +6,32 @@
 
 
 <div class="dashboard-wrapper">
-        <div class="container-fluid dashboard-content">
-            <!-- ============================================================== -->
-            <!-- pageheader -->
-            <!-- ============================================================== -->
-            <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="page-header">
-                        <h2 class="pageheader-title">Category</h2>                   
-                        <div class="page-breadcrumb">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
+    <div class="container-fluid dashboard-content">
+        <!-- ============================================================== -->
+        <!-- pageheader -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Category</h2>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
                                     <a asp-action="Index" class="breadcrumb-link">Category</a>
-                                    </li>
-                                 </ol>
-                            </nav>
-                        </div>
-                    <div class="page-breadcrumb float-right pb-3">                        
-                        <a class="btn btn-primary" asp-controller="Categories" asp-action="Create">New Category</a>
+                                </li>
+                            </ol>
+                        </nav>
                     </div>
+                    <div class="page-breadcrumb float-right pb-3">
+                        <a class="btn btn-primary" asp-controller="Categories" asp-action="Create">New Category</a>
                     </div>
                 </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- end pageheader -->
-            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader -->
+        <!-- ============================================================== -->
 
 
 
@@ -61,21 +61,21 @@
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                    <tr>
-                                      <td class="gap-lg-3"><img style="width: 60px; height: 60px" src="@Url.Content(item.PictureUrl)" asp-append-version="true" /> </td>
-                                      <td>
-                                        @Html.DisplayFor(modelItem => item.Name)
-                                      </td>
-                                      <td>
-                                        @item.Products.Count()
-                                      </td>
-                                      <td>
-                                       <a asp-action="Edit" asp-route-id="@item.Id"><i class="far fa-edit text-primary mr-4"></i></a>
-                                        <a asp-action="Delete" asp-route-id="@item.Id"><i class="far fa-trash-alt text-danger"></i></a>
-                                      </td>
-                                    </tr>                    
+                                        <tr>
+                                            <td class="gap-lg-3"><img style="width: 60px; height: 60px" src="@Url.Content(item.PictureUrl)" asp-append-version="true" /> </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Name)
+                                            </td>
+                                            <td>
+                                                @item.Products.Count()
+                                            </td>
+                                            <td>
+                                                <a asp-action="Edit" asp-route-id="@item.Id"><i class="far fa-edit text-primary mr-4"></i></a>
+                                                <a asp-action="Delete" asp-route-id="@item.Id"><i class="far fa-trash-alt text-danger"></i></a>
+                                            </td>
+                                        </tr>
                                     }
-                                </tbody>                              
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -85,5 +85,5 @@
             <!-- end fixed header  -->
             <!-- ============================================================== -->
         </div>
-        </div>
     </div>
+</div>
