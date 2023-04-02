@@ -23,6 +23,11 @@ namespace ShopAdmin.Data
                 .HasOne(i => i.Product)
                 .WithMany(p => p.Images)
                 .HasForeignKey(i => i.ProductId);
+            modelBuilder.Entity<Product>()
+               .HasOne(p => p.Category)
+               .WithMany(c => c.Products)
+               .HasForeignKey(p => p.CategoryId)
+               .OnDelete(DeleteBehavior.Restrict);
         }
     }
 
