@@ -27,6 +27,7 @@ namespace ShopAdmin.Controllers
         {
             var product = await _context.Products.Include(c => c.Category).ToListAsync();
             var brand  = await _context.Products.Include(c => c.Brand).ToListAsync();
+            //var spec = await _context.Products.Include(c => c.Specifications).ToListAsync();
 
             //var category = await _context.Categories.ToListAsync();
             return View(product);
@@ -41,12 +42,14 @@ namespace ShopAdmin.Controllers
             }
 
             var product = await _context.Products.Include(p => p.Images).FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
+            var spec = await _context.Products.Include(p => p.Specifications).FirstOrDefaultAsync(m => m.Id == id);
+            if (product == null || spec == null)
             {
                 return NotFound();
             }
 
             ViewBag.Images = product.Images.ToList();
+            ViewBag.Specifications = spec.Specifications.ToList();
 
             return View(product);
         }
@@ -70,6 +73,12 @@ namespace ShopAdmin.Controllers
             await _context.Products.AddAsync(product);
             _context.SaveChanges();
 
+            foreach (var spec in product.Specifications)
+            {
+                spec.ProductId = product.Id;
+                _context.Specifications.Attach(spec);
+            }
+
             foreach (var image in Images)
             {
                 if (image.Length > 0)
@@ -92,57 +101,81 @@ namespace ShopAdmin.Controllers
         }
 
         // GET: Products/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int id)
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
             ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name");
-            if (id == null || _context.Products == null)
+            var product = _context.Products.Include(p => p.Images).FirstOrDefault(p => p.Id == id);
+            if ( _context.Products == null || product == null)
             {
                 return NotFound();
             }
+            ViewBag.Images = product.Images.ToList();
+            return View(product);
+        }
 
-            var product = await _context.Products.FindAsync(id);
+        [HttpPost]
+        public async Task<IActionResult> Edit(Product model, List<IFormFile> Images)
+        {
+            var product = _context.Products.Include(p => p.Images).FirstOrDefault(p => p.Id == model.Id);
+
             if (product == null)
             {
                 return NotFound();
             }
-            return View(product);
-        }
+            product.Title = model.Title;
+            product.Description = model.Description;
+            product.Colors = model.Colors;
+            product.Reviews = model.Reviews;
+            product.ReviewScore = model.ReviewScore;
+            product.Price = model.Price;
+            product.Stock = model.Stock;
+            product.Delivery = model.Delivery;
+            product.SKU = model.SKU;
+            product.CategoryId = model.CategoryId;
+            product.BrandId = model.BrandId;
 
-        // POST: Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,BrandName,Colors,Reviews,ReviewScore,Price,Stock,Delivery,SKU")] Product product)
-        {
-            if (id != product.Id)
+            var guid = $"{Guid.NewGuid()}";
+
+            product.FirstImageUrl = $"/images/products/{guid}_{Images[0].FileName}";
+
+            foreach (var image in Images)
             {
-                return NotFound();
+                if (image.Length > 0)
+                {
+                    var fileName = $"{guid}_{Path.GetFileName(image.FileName)}";
+                    var filePath = Path.Combine(environment.WebRootPath, "images", "products", fileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await image.CopyToAsync(fileStream);
+                    }
+
+                    if (product.Images.Count > 0)
+                    {
+                        var oldImage = product.Images.First();
+                        System.IO.File.Delete(environment.WebRootPath + oldImage.Url);
+                        _context.Images.Remove(oldImage);
+                    }
+
+                    var newImage = new Image { Name = fileName, Url = "/images/products/" + fileName, ProductId = product.Id };
+                    _context.Images.Add(newImage);
+                }
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductExists(product.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(product);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
+
+
+
+
+
+
+
+
+
 
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)

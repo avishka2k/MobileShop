@@ -1,4 +1,5 @@
 
+using Azure;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShopAdmin.Models
@@ -22,5 +23,7 @@ namespace ShopAdmin.Models
         public Brand Brand { get; set; }
         public List<Image> Images { get; set; }
         public string FirstImageUrl { get; set; }
+        public List<Specification> Specifications { get; set; }
+
     }
 }

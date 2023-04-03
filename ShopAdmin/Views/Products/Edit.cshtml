@@ -14,10 +14,6 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
                     <h2 class="pageheader-title">Edit Product</h2>
-                    <p class="pageheader-text">
-                        Proin placerat ante duiullam scelerisque a velit ac porta,
-                        fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.
-                    </p>
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
@@ -47,7 +43,7 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form asp-action="Edit" class="needs-validation" novalidate>
+                        <form asp-action="Edit" class="needs-validation" enctype="multipart/form-data" novalidate>
                             <div class="row pb-3">
                                 <div class="col">
                                     <div class="row pb-3">
@@ -85,7 +81,20 @@
                                                    id="validationCustom03"
                                                    placeholder="Picture"
                                                    required multiple />
-                                            <ul id="image-list"></ul>
+                                            <div id="image-list" class="p-0 image-grid-list mt-3">
+                                                @if (ViewBag.Images != null)
+                                                {
+                                                    foreach (var item in ViewBag.Images)
+                                                    {
+                                                        <div class="image-grid-list-item">
+                                                            <button type="button" class="list-group-item align-items-center list-group-item d-flex p-0 list-group-item-action">
+                                                                <img class="w-100" src="@Url.Content(item.Url)" alt="@item.Name" />
+                                                                <span id="image-list-button" type="button" onclick="BtnClick()" data-id="@item.Id" class="text-danger image-remove">X</span>
+                                                            </button>
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row pb-3">
@@ -106,6 +115,15 @@
                                         <label for="summernote">Description</label>
                                         <textarea asp-for="Description" class="form-control" placeholder="Description" id="summernote" required></textarea>
                                         <div class="valid-feedback">Looks good!</div>
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pt-3">
+                                        <label for="Specifications">Specifications</label>
+                                        <div class="d-flex gap-3">
+                                            <input class="form-control me-4" type="text" id="tags" />
+                                            <button type="button" class="btn btn-primary" id="add-tag">Add</button>
+                                        </div>
+                                        <ul id="tag-list" class="list-group border-0"></ul>
+                                        <input type="hidden" asp-for="Specifications" />                                        
                                     </div>
                                 </div>
                             </div>
@@ -218,4 +236,54 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        var tags = [];
+
+        $('#add-tag').click(function () {
+            var tag = $('#tags').val();
+            if (tag) {
+                tags.push(tag);
+                $('#tag-list').append('<li class="p-2 border-0 list-group-item">' + tag + ' <span role="button" class="text-danger this-is-pointer remove-tag">x</span> </li>');
+                $('#tags').val('');
+                updateTags();
+            }
+        });
+
+        $(document).on('click', '.remove-tag', function () {
+            var index = $(this).closest('li').index();
+            tags.splice(index, 1);
+            $(this).closest('li').remove();
+            updateTags();
+        });
+
+        function updateTags() {
+            $('input[name="Tags"]').remove();
+
+            $.each(tags, function (index, tag) {
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'Tags[' + index + '].Name',
+                    value: tag
+                }).appendTo('form');
+            });
+        }
+    </script>
+    <script>
+        function BtnClick() {
+            var listItem = $(this).closest('.image-grid-list-item');
+            var id = $(this).data('id');
+            $.ajax({
+                url: '/Product/Delete',
+                type: 'DELETE',
+                data: { id: id },
+                success: function () {
+                    listItem.remove();
+                },
+                error: function () {
+                    alert('Error deleting image');
+                }
+            });
+        }
+
+    </script>
 }

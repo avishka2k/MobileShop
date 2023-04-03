@@ -1,3 +1,4 @@
+using Azure;
 using Microsoft.EntityFrameworkCore;
 using ShopAdmin.Models;
 
@@ -16,14 +17,16 @@ namespace ShopAdmin.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Brand> Brands { get; set; }
+        public DbSet<Specification> Specifications { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             modelBuilder.Entity<Image>()
-                .HasOne(i => i.Product)
-                .WithMany(p => p.Images)
-                .HasForeignKey(i => i.ProductId);
+               .HasOne(i => i.Product)
+               .WithMany(p => p.Images)
+               .HasForeignKey(i => i.ProductId);
             modelBuilder.Entity<Product>()
                .HasOne(p => p.Category)
                .WithMany(c => c.Products)
@@ -34,6 +37,10 @@ namespace ShopAdmin.Data
                .WithMany(c => c.Products)
                .HasForeignKey(p => p.BrandId)
                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Specification>()
+               .HasOne(t => t.Product)
+               .WithMany(p => p.Specifications)
+               .HasForeignKey(t => t.ProductId);
         }
 
     }

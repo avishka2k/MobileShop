@@ -24,6 +24,7 @@ namespace ShopAdmin.Controllers
         }
 
         // GET: Brands
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
 
@@ -31,7 +32,12 @@ namespace ShopAdmin.Controllers
             //var brand = await _context.Brands.ToListAsync();
             return View(brand);
         }
-
+        [HttpGet]
+        public IActionResult Error()
+        {
+            return View();
+        }
+        [HttpGet]
         public IActionResult Create()
         {
             ViewData["Brands"] = _context.Brands.ToList();

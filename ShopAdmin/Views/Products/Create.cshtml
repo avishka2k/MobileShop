@@ -4,12 +4,6 @@
     ViewData["Title"] = "Create";
 }
 
-<style>
-    .list-group img {
-        width: 100px;
-    }
-</style>
-
 
 <div class="dashboard-wrapper">
     <div class="container-fluid dashboard-content">
@@ -88,7 +82,7 @@
                                                    id="validationCustom03"
                                                    placeholder="Picture"
                                                    required multiple />
-                                            <ul id="image-list"></ul>
+                                            <div id="image-list" class="p-0 image-grid-list mt-3"></div>
                                         </div>
                                     </div>
                                     <div class="row pb-3">
@@ -109,6 +103,15 @@
                                         <label for="summernote">Description</label>
                                         <textarea asp-for="Description" class="form-control" placeholder="Description" id="summernote" required></textarea>
                                         <div class="valid-feedback">Looks good!</div>
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pt-3">
+                                        <label for="Specifications">Specifications</label>
+                                        <div class="d-flex gap-3">
+                                            <input class="form-control me-4" type="text" id="specifications" />
+                                            <button type="button" class="btn btn-primary" id="add-specification">Add</button>
+                                        </div>
+                                        <ul id="specification-list" class="list-group border-0"></ul>
+                                        <input type="hidden" asp-for="Specifications" />                                        
                                     </div>
                                 </div>
                             </div>
@@ -221,19 +224,5 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    <script>
-        $('input[name="Images"]').change(function () {
-            var files = $(this).prop('files');
-            $.each(files, function (index, file) {
-                var reader = new FileReader();
-                reader.onload = function (event) {
-                    var imageSrc = event.target.result;
-                    var imageName = file.name;
-                    var listItem = '<div class="list-group"><button type="button" class="list-group-item align-items-center list-group-item d-flex gap-3 list-group-item-action" disabled><img src="' + imageSrc + '" alt="' + imageName + '" /><br />' + imageName + '<br /></button></div>';
-                    $('#image-list').append(listItem);
-                }
-                reader.readAsDataURL(file);
-            });
-        });
-    </script>
+    
 }

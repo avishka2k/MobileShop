@@ -11,7 +11,7 @@ using ShopAdmin.Data;
 namespace ShopAdmin.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20230402181322_Initial Migration")]
+    [Migration("20230403084809_Initial Migration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -155,6 +155,28 @@ namespace ShopAdmin.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("ShopAdmin.Models.Specification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Specifications");
+                });
+
             modelBuilder.Entity("ShopAdmin.Models.Image", b =>
                 {
                     b.HasOne("ShopAdmin.Models.Product", "Product")
@@ -185,6 +207,17 @@ namespace ShopAdmin.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("ShopAdmin.Models.Specification", b =>
+                {
+                    b.HasOne("ShopAdmin.Models.Product", "Product")
+                        .WithMany("Specifications")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("ShopAdmin.Models.Brand", b =>
                 {
                     b.Navigation("Products");
@@ -198,6 +231,8 @@ namespace ShopAdmin.Migrations
             modelBuilder.Entity("ShopAdmin.Models.Product", b =>
                 {
                     b.Navigation("Images");
+
+                    b.Navigation("Specifications");
                 });
 #pragma warning restore 612, 618
         }

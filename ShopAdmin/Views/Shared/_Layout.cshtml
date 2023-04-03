@@ -22,7 +22,35 @@
     <link rel="stylesheet" href="~/assets/vendor/datatables/css/buttons.bootstrap4.css" />
     <link rel="stylesheet" href="~/assets/vendor/datatables/css/select.bootstrap4.css" />
     <link rel="stylesheet" href="~/assets/vendor/datatables/css/fixedHeader.bootstrap4.css" />
+    <style>
+        .list-group img {
+            width: 100px;
+        }
 
+        .this-is-pointer {
+            cursor: pointer;
+            padding-left: 10px;
+        }
+
+        .image-grid-list {
+            width: 840px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .image-grid-list-item {
+            width: 140px;
+            height: 140px;
+            position: relative;
+        }
+
+        .image-remove {
+            position: absolute;
+            top: 4px;
+            right: 8px;
+            cursor: pointer;
+        }
+    </style>
 
 </head>
 <body>
@@ -203,7 +231,7 @@
 
     <script>
         $('#summernote').summernote({
-            placeholder: 'Hello stand alone ui',
+            placeholder: 'Description',
             tabsize: 2,
             height: 200,
             toolbar: [
@@ -213,7 +241,6 @@
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['table', ['table']],
                 ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
             ]
         });
     </script>
@@ -286,6 +313,62 @@
                 spinner.find("input").trigger("change");
             });
         });
+    </script>
+    <script>
+        $('input[name="Images"]').change(function () {
+            var files = $(this).prop('files');
+            $.each(files, function (index, file) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    var imageSrc = event.target.result;
+                    var imageName = file.name;
+                    var listItem = '<div class="image-grid-list-item"><button type="button" class="list-group-item align-items-center list-group-item d-flex p-0 list-group-item-action"><img class="w-100" src="' + imageSrc + '" alt="' + imageName + '" /><span id="image-list-button" type="button" class="text-danger image-remove">X</span></button></div>';
+                    $('#image-list').append(listItem);
+                }
+                reader.readAsDataURL(file);
+            });
+        });
+
+        $(document).on('click', '.image-remove', function () {
+            var listItem = $(this).closest('.image-grid-list-item');
+            var index = $('.image-grid-list-item').index(listItem);
+            // remove the corresponding image from the array list using the index
+            // images.splice(index, 1);
+            listItem.remove();
+        });
+    </script>
+
+    <script>
+        var specifications = [];
+
+        $('#add-specification').click(function () {
+            var specification = $('#specifications').val();
+            if (specification) {
+                specifications.push(specification);
+                $('#specification-list').append('<li class="p-2 border-0 list-group-item">' + specification + ' <span role="button" class="text-danger this-is-pointer remove-specification">X</span> </li>');
+                $('#specifications').val('');
+                updateSpecifications();
+            }
+        });
+
+        $(document).on('click', '.remove-specification', function () {
+            var index = $(this).closest('li').index();
+            specifications.splice(index, 1);
+            $(this).closest('li').remove();
+            updateSpecifications();
+        });
+
+        function updateSpecifications() {
+            $('input[name="Specifications"]').remove();
+
+            $.each(specifications, function (index, specification) {
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'Specifications[' + index + '].Name',
+                    value: specification
+                }).appendTo('form');
+            });
+        }
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
