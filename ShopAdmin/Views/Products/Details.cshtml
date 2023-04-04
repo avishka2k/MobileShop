@@ -7,6 +7,8 @@
     .list-style-position{
         list-style-position: inside;
     }
+
+    
 </style>
 
 <div class="dashboard-wrapper">
@@ -70,7 +72,8 @@
                                         <div class="carousel-inner">
                                             <div class="carousel-item active">
                                                 <div class="row mx-0">
-                                                    @{
+                                                    @if (ViewBag.Images != null)
+                                                    {
                                                         int index1 = 0;
                                                         foreach (var image in ViewBag.Images)
                                                         {
@@ -104,21 +107,35 @@
                                 </div>
                                 <div class="product-colors border-bottom">
                                     <h4>Select Colors</h4>
-                                    <input type="radio"
+                                    @if (ViewBag.Colors != null)
+                                    {
+                                        int index_color = 1;
+                                        foreach (var color in ViewBag.Colors)
+                                        {
+                                         <input type="radio"
                                            class="radio"
-                                           id="radio-1"
+                                           style="background: @color.ColorCode"
+                                           id="color-radio-btn-@index_color"
                                            name="group" />
-                                    <label for="radio-1"></label>
-                                    <input type="radio"
-                                           class="radio"
-                                           id="radio-2"
-                                           name="group" />
-                                    <label for="radio-2"></label>
-                                    <input type="radio"
-                                           class="radio"
-                                           id="radio-3"
-                                           name="group" />
-                                    <label for="radio-3"></label>
+                                            <label style="background: @color.ColorCode" for="color-radio-btn-@index_color"></label>
+                                            <style>
+                                                #color-radio-btn-@index_color + label {
+                                                    left: -60vw;
+                                                    animation-delay: 0s;
+                                                }
+
+                                                #color-radio-btn-@index_color + label:before {
+                                                    transform: scale(0);
+                                                }
+
+                                                #color-radio-btn-@index_color:checked + label:before {
+                                                    transform: scale(1);
+                                                    transition: all .4s;
+                                                }
+                                            </style>
+                                            index_color++;
+                                        }
+                                    }
                                 </div>
                                 <div class="product-size border-bottom">
                                     <h4>Size</h4>
@@ -148,10 +165,14 @@
                                 <div class="product-description">
                                     <h4 class="mb-1">Descriptions</h4>
                                     <ul class="list-style-position p-0">
-                                    @foreach (var spec in ViewBag.Specifications)
-                                    {
-                                        <li>@spec.Name</li>
-                                    }
+                                        @if (ViewBag.Specifications != null)
+                                        {
+                                            foreach (var spec in ViewBag.Specifications)
+                                            {
+                                                <li>@spec.Name</li>
+                                            }
+                                        }
+
                                     </ul>
                                 </div>
                             </div>

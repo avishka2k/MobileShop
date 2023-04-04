@@ -10,7 +10,6 @@ namespace ShopAdmin.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public string Colors { get; set; }
         public string Reviews { get; set; }
         public string ReviewScore { get; set; }
         public string Price { get; set; }
@@ -24,6 +23,7 @@ namespace ShopAdmin.Models
         public List<Image> Images { get; set; }
         public string FirstImageUrl { get; set; }
         public List<Specification> Specifications { get; set; }
+        public List<Color> Colors { get; set; }
 
     }
 }

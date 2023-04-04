@@ -43,13 +43,15 @@ namespace ShopAdmin.Controllers
 
             var product = await _context.Products.Include(p => p.Images).FirstOrDefaultAsync(m => m.Id == id);
             var spec = await _context.Products.Include(p => p.Specifications).FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null || spec == null)
+            var color = await _context.Products.Include(p => p.Colors).FirstOrDefaultAsync(m => m.Id == id);
+            if (product == null || spec == null || color == null)
             {
                 return NotFound();
             }
 
             ViewBag.Images = product.Images.ToList();
             ViewBag.Specifications = spec.Specifications.ToList();
+            ViewBag.Colors = spec.Colors.ToList();
 
             return View(product);
         }
@@ -77,6 +79,11 @@ namespace ShopAdmin.Controllers
             {
                 spec.ProductId = product.Id;
                 _context.Specifications.Attach(spec);
+            }
+            foreach (var color in product.Colors)
+            {
+                color.ProductId = product.Id;
+                _context.Colors.Attach(color);
             }
 
             foreach (var image in Images)
