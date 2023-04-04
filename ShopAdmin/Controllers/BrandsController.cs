@@ -61,7 +61,6 @@ namespace ShopAdmin.Controllers
                 {
                     await model.PictureFile.CopyToAsync(stream);
                 }
-
                 brand.PictureUrl = $"/images/brands/{fileName}";
             }
             await _context.Brands.AddAsync(brand);

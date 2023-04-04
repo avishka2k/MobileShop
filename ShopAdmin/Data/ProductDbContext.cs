@@ -18,6 +18,7 @@ namespace ShopAdmin.Data
         public DbSet<Image> Images { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Specification> Specifications { get; set; }
+        public DbSet<Color> Colors { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,6 +41,10 @@ namespace ShopAdmin.Data
             modelBuilder.Entity<Specification>()
                .HasOne(t => t.Product)
                .WithMany(p => p.Specifications)
+               .HasForeignKey(t => t.ProductId);
+            modelBuilder.Entity<Color>()
+               .HasOne(t => t.Product)
+               .WithMany(p => p.Colors)
                .HasForeignKey(t => t.ProductId);
         }
 

@@ -50,6 +50,11 @@
             right: 8px;
             cursor: pointer;
         }
+
+        .color-btn{
+            padding-top: 7px;
+            padding-bottom: 7px;
+        }
     </style>
 
 </head>
@@ -369,6 +374,79 @@
                 }).appendTo('form');
             });
         }
+    </script>
+    <script>
+        var colors = [];
+
+        $('#add-color').click(function () {
+            var color = $('#colors').val();
+
+            if (color) {
+                colors.push(color);
+                switch (color) {
+                    case "#27242D":
+                        color = "Black"
+                        break;
+                    case "#F6F2EF":
+                        color = "White"
+                        break;
+                    case "#094067":
+                        color = "Blue"
+                        break;
+                    case "#F4E8CE":
+                        color = "Gold"
+                        break;
+                    case "#5B5265":
+                        color = "Deep Purple"
+                        break;
+                    case "#F0F2F1":
+                        color = "Silver"
+                        break;
+                    case "#444341":
+                        color = "Space Black"
+                        break;
+                    case "#BAB1E8":
+                        color = "Purple"
+                        break;
+                    case "#D9F0D6":
+                        color = "Green"
+                        break;
+                    case "#FAE1DC":
+                        color = "Pink"
+                        break;
+                    case "#D73131":
+                        color = "Red"
+                        break;
+                }
+
+                $('#color-list').append('<li class="p-2 border-0 list-group-item">' + color + ' <span role="button" class="text-danger this-is-pointer remove-color">X</span> </li>');
+                $('#colors').val('');
+                updateTags();
+            }
+        });
+
+        $(document).on('click', '.remove-color', function () {
+            var color = $(this).closest('li').text().trim(); // get the text content of the color
+            var index = colors.indexOf(color); // search for the index of the color in the array
+            if (index > -1) {
+                colors.splice(index, 1); // remove the color from the array
+            }
+            $(this).closest('li').remove(); // remove the color from the list
+            updateTags();
+            console.log(colors);
+        });
+
+        function updateTags() {
+            $('input[name="Colors"]').remove();
+            $.each(colors, function (index, color) {
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'Colors[' + index + '].ColorCode',
+                    value: color
+                }).appendTo('form');
+            });
+        }
+
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

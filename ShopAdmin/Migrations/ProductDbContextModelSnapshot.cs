@@ -63,6 +63,28 @@ namespace ShopAdmin.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("ShopAdmin.Models.Color", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ColorCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Colors");
+                });
+
             modelBuilder.Entity("ShopAdmin.Models.Image", b =>
                 {
                     b.Property<int>("Id")
@@ -102,10 +124,6 @@ namespace ShopAdmin.Migrations
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Colors")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Delivery")
                         .IsRequired()
@@ -174,6 +192,17 @@ namespace ShopAdmin.Migrations
                     b.ToTable("Specifications");
                 });
 
+            modelBuilder.Entity("ShopAdmin.Models.Color", b =>
+                {
+                    b.HasOne("ShopAdmin.Models.Product", "Product")
+                        .WithMany("Colors")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("ShopAdmin.Models.Image", b =>
                 {
                     b.HasOne("ShopAdmin.Models.Product", "Product")
@@ -227,6 +256,8 @@ namespace ShopAdmin.Migrations
 
             modelBuilder.Entity("ShopAdmin.Models.Product", b =>
                 {
+                    b.Navigation("Colors");
+
                     b.Navigation("Images");
 
                     b.Navigation("Specifications");
