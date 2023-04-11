@@ -153,9 +153,8 @@ namespace ShopAdmin.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Stock")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
