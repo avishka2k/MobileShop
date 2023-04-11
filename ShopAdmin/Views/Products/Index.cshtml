@@ -69,9 +69,6 @@
                                         <th>
                                             @Html.DisplayNameFor(model => model.Stock)
                                         </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Delivery)
-                                        </th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -107,12 +104,17 @@
                                                 @Html.DisplayFor(modelItem => item.Price)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Stock)
+                                                @{
+                                                    if (item.Stock == 0)
+                                                    {
+                                                        <p>Out Stock</p>
+                                                    }
+                                                    else if (item.Stock > 0)
+                                                    {
+                                                        @Html.DisplayFor(modelItem => item.Stock)
+                                                    }
+                                                }
                                             </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Delivery)
-                                            </td>
-
                                             <td class="gap-5 text-center">
 
                                                 <a asp-action="Edit" asp-route-id="@item.Id"><i class="far fa-edit text-primary mr-2"></i></a>

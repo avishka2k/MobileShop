@@ -25,8 +25,7 @@ namespace ShopAdmin.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var product = await _context.Products.Include(c => c.Category).ToListAsync();
-            var brand  = await _context.Products.Include(c => c.Brand).ToListAsync();
+            var product = await _context.Products.Include(c => c.Category).Include(c => c.Brand).ToListAsync();
             //var spec = await _context.Products.Include(c => c.Specifications).ToListAsync();
 
             //var category = await _context.Categories.ToListAsync();
@@ -174,14 +173,6 @@ namespace ShopAdmin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
-
-
-
-
-
-
-
 
 
         // GET: Products/Delete/5

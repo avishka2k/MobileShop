@@ -13,7 +13,7 @@ namespace ShopAdmin.Models
         public string Reviews { get; set; }
         public string ReviewScore { get; set; }
         public string Price { get; set; }
-        public string Stock { get; set; }
+        public int Stock { get; set; }
         public string Delivery { get; set; }
         public string SKU { get; set; }
         public int CategoryId { get; set; }
