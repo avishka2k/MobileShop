@@ -99,13 +99,28 @@
                                     </div>
                                     <div class="row pb-3">
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                            <label for="validationCustom04">Colors</label>
-                                            <input type="text"
-                                                   class="form-control"
-                                                   id="validationCustom04"
-                                                   asp-for="Colors"
-                                                   placeholder="Colors"
-                                                   required />
+                                            <label for="validationCustom09">Colors</label>
+                                            <div class="d-flex">
+                                                <select class="form-control"
+                                                        id="colors"
+                                                        aria-label="Default select example">
+                                                    <option selected>Select Color</option>
+                                                    <option value="#27242D">Black</option>
+                                                    <option value="#F6F2EF">White</option>
+                                                    <option value="#094067">Blue</option>
+                                                    <option value="#F4E8CE">Gold</option>
+                                                    <option value="#5B5265">Deep Purple</option>
+                                                    <option value="#F0F2F1">Silver</option>
+                                                    <option value="#444341">Space Black</option>
+                                                    <option value="#BAB1E8">Purple</option>
+                                                    <option value="#D9F0D6">Green</option>
+                                                    <option value="#D73131">Red</option>
+                                                    <option value="#FAE1DC">Pink</option>
+                                                </select>
+                                                <button type="button" class="btn color-btn btn-primary ms-4" id="add-color">Add</button>
+                                            </div>
+                                            <ul id="color-list" class="list-group border-0"></ul>
+                                            <input type="hidden" asp-for="Colors" />
                                             <div class="valid-feedback">Looks good!</div>
                                         </div>
                                     </div>
