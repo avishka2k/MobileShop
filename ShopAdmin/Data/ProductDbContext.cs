@@ -47,7 +47,5 @@ namespace ShopAdmin.Data
                .WithMany(p => p.Colors)
                .HasForeignKey(t => t.ProductId);
         }
-
     }
-
 }

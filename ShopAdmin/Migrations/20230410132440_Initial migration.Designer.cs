@@ -11,8 +11,8 @@ using ShopAdmin.Data;
 namespace ShopAdmin.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20230404040513_Initial Migration")]
-    partial class InitialMigration
+    [Migration("20230410132440_Initial migration")]
+    partial class Initialmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -156,9 +156,8 @@ namespace ShopAdmin.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Stock")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
