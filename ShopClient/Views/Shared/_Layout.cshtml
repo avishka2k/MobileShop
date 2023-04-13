@@ -4,13 +4,50 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ShopClient</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/ShopClient.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap/css/bootstrap.min.css"/>
+    <link href="~/assets/vendor/fonts/circular-std/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/libs/css/style.css" />
+    <link rel="stylesheet" href="~/assets/vendor/fonts/fontawesome/css/fontawesome-all.css"/>
+    <style>
+        .subtract-w{
+            background-color: #319DFF;
+            width: 35px;
+            height: 35px;
+            border-radius: 100%;
+            display: flex;
+            cursor: pointer;
+        }
+        .bookmark-icon{
+            right: 0;
+            top: 0.5rem;
+            color: #D1D1D1;
+            cursor:pointer;
+        }
+        .product-card-comp{
+            max-height: 24rem;
+            min-height:24rem;
+        }
+        .product-card-img{
+            min-height:15rem;
+        }
+        .card-addtocart-btn{
+            border-radius:100px;
+            background-color: #319DFF;
+        }
+        .product-cart-title{
+            color: #319DFF;
+            cursor:pointer;
+        }
+
+        .product-cart-title:hover{
+            text-decoration: underline;
+            color:#319DFF
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<body class="bg-white">
+    <header class="">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ShopClient</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -30,7 +67,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -41,9 +78,52 @@
             &copy; 2023 - ShopClient - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="~/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <!-- bootstap bundle js -->
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- slimscroll js -->
+    <script src="~/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+    <!-- main js -->
+    <script src="~/assets/libs/js/main-js.js"></script>
+    <script>
+        jQuery(
+            '<div class="quantity-nav"><div class="quantity-button quantity-up">+</div><div class="quantity-button quantity-down">-</div></div>'
+        ).insertAfter(".quantity input");
+        jQuery(".quantity").each(function () {
+            var spinner = jQuery(this),
+                input = spinner.find('input[type="number"]'),
+                btnUp = spinner.find(".quantity-up"),
+                btnDown = spinner.find(".quantity-down"),
+                min = input.attr("min"),
+                max = input.attr("max");
+
+            btnUp.click(function () {
+                var oldValue = parseFloat(input.val());
+                if (oldValue >= max) {
+                    var newVal = oldValue;
+                } else {
+                    var newVal = oldValue + 1;
+                }
+                spinner.find("input").val(newVal);
+                spinner.find("input").trigger("change");
+            });
+
+            btnDown.click(function () {
+                var oldValue = parseFloat(input.val());
+                if (oldValue <= min) {
+                    var newVal = oldValue;
+                } else {
+                    var newVal = oldValue - 1;
+                }
+                spinner.find("input").val(newVal);
+                spinner.find("input").trigger("change");
+            });
+        });
+    </script>
+
+
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

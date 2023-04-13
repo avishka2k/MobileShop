@@ -1,0 +1,309 @@
+﻿<style>
+       body{
+        vertical-align: middle;
+        min-height: 100vh;
+        }
+      .cart-title {
+        margin-bottom: 5vh;
+      }
+      .cart-card {
+        margin: auto;
+        width: 100%;
+      }
+     
+      .cart-cart {
+        padding: 4vh 5vh;
+      }
+      
+      .cart-summary {
+        background-color: #ddd;
+        padding: 4vh;
+        color: rgb(65, 65, 65);
+      }
+
+      .cart-summary .cart-col-2 {
+        padding: 0;
+      }
+      .cart-summary .col-10 {
+        padding: 0;
+      }
+      .cart-row {
+        margin: 0;
+      }
+      .cart-title b {
+        font-size: 1.5rem;
+      }
+      .cart-main {
+        margin: 0;
+        padding: 2vh 0;
+        width: 100%;
+        padding-right: 1rem;
+      }
+      .cart-col-2,
+      .cart-col {
+        padding: 0 1vh;
+      }
+      .cart-a {
+        padding: 0 1vh;
+      }
+      .cart-close {
+        margin-left: auto;
+        font-size: 0.9rem;
+      }
+      .cart-img img {
+        width: 3.5rem;
+      }
+      .back-to-shop {
+        margin-top: 4.5rem;
+      }
+      .cart-h5 {
+        margin-top: 4vh;
+      }
+      .cart-hr {
+        margin-top: 1.25rem;
+      }
+      .cart-form {
+        padding: 2vh 0;
+      }
+      .cart-item-category{
+          font-size: 11px;
+      }
+      .cart-select {
+        border: 1px solid rgba(0, 0, 0, 0.137);
+        padding: 1.5vh 1vh;
+        margin-bottom: 4vh;
+        outline: none;
+        width: 100%;
+        background-color: rgb(247, 247, 247);
+      }
+      .cart-input {
+        border: 1px solid rgba(0, 0, 0, 0.137);
+        padding: 1vh;
+        margin-bottom: 4vh;
+        outline: none;
+        width: 100%;
+        background-color: rgb(247, 247, 247);
+      }
+      .cart-input:focus::-webkit-input-placeholder {
+        color: transparent;
+      }
+      .cart-btn {
+        background-color: #5969ff;
+        border-color: #5969ff;
+        color: white;
+        width: 100%;
+        font-size: 0.7rem;
+        margin-top: 4vh;
+        padding: 1vh;
+        border-radius: 0;
+      }
+      .cart-btn:focus {
+        box-shadow: none;
+        outline: none;
+        box-shadow: none;
+        color: white;
+        -webkit-box-shadow: none;
+        -webkit-user-select: none;
+        transition: none;
+      }
+      .cart-btn:hover {
+        color: white;
+      }
+      .cart-a {
+        color: black;
+      }
+      .cart-a:hover {
+        color: black;
+        text-decoration: none;
+      }
+      #cart-code {
+        background-image: linear-gradient(
+            to left,
+            rgba(255, 255, 255, 0.253),
+            rgba(255, 255, 255, 0.185)
+          ),
+          url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
+        background-repeat: no-repeat;
+        background-position-x: 95%;
+        background-position-y: center;
+        cursor:pointer;
+      }
+      .cart-overflow{
+          overflow:auto;
+          max-height:25rem;
+      }
+    </style>
+
+@{
+    int cart_item_count = 0;
+}
+
+@if (ViewBag.cart != null)
+{
+    foreach (var item in ViewBag.cart)
+    {
+        cart_item_count += item.Quantity;
+    }
+}
+
+<div class="dashboard-ecommerce cart-dody">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb border-0">
+                                <li class="breadcrumb-item">
+                                    <a asp-action="Index" asp-controller="Home" class="breadcrumb-link">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Cart
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+               <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                @{
+                    if (ViewBag.cart == null || cart_item_count == 0)
+                    {
+                       <div class="col-sm-12 text-center empty-page mb-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                            </svg>
+                            <h2 class="mt-5">Your shopping cart is empty!</h2>
+                            <p class="mb-3 pb-1">You have no items in your shopping cart.</p>
+                            <a asp-controller="Products" asp-action="Index" class="btn btn-primary">continue shopping</a>
+                        </div> 
+                    }
+                    else{                      
+                        <div class="card cart-card">
+                            <div class="row cart-row">
+                                <div class="col-md-8 cart cart-cart">
+                                    <div class="title cart-title">
+                                        <div class="row cart-row">
+                                            <div class="col cart-col">
+                                                <h4><b>Shopping Cart</b></h4>
+                                            </div>
+                                            <div class="col cart-col align-self-center text-right text-muted">                                                
+                                                @cart_item_count items
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cart-overflow">
+                                        @if (ViewBag.cart != null)
+                                        {
+                                            foreach (var item in ViewBag.cart)
+                                            {
+                                                <div class="row cart-row border-top border-bottom">
+                                                    <div class="row cart-row main cart-main align-items-center">
+                                                        <div class="col-2 cart-col-2">
+                                                            <img class="img-fluid cart-img" src="@ViewBag.AdminWebUrl@item.Product.FirstImageUrl" />
+                                                        </div>
+                                                        <div class="col cart-col">
+                                                            <div class="row cart-row cart-item-category text-muted">Shirt</div>
+                                                            <div class="row cart-row">@item.Product.Title</div>
+                                                        </div>
+                                                        <div class="col cart-col">
+                                                            <a class="cart-a quantity-decrement" onclick="updateCartQuantity(@item.Product.Id, -1)" href="#">-</a>
+                                                            <a href="#" class="border cart-a quantity-number">@item.Quantity</a>
+                                                            <a class="cart-a quantity-increment" onclick="updateCartQuantity(@item.Product.Id, 1)" href="#">&plus;</a>
+                                                        </div>
+                                                        <div class="col cart-col">
+                                                            &dollar; @item.Product.Price &#215;
+                                                            <a href="#" class="quantity-number cart-a">@item.Quantity</a>
+                                                            <a asp-controller="cart" asp-action="remove" asp-route-id="@item.Product.Id" class="close text-danger cart-close">&#10005;</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                    <div class="back-to-shop">
+                                        <a class="cart-a" href="#">&leftarrow;</a><a asp-controller="Products" asp-action="Index" class="text-muted">Back to shop</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 summary cart-summary">
+                                    <div>
+                                        <h5 class="cart-h5"><b>Summary</b></h5>
+                                    </div>
+                                    <hr class="cart-hr" />
+                                    <div class="row cart-row">
+                                        <div class="col cart-col" style="padding-left: 0">ITEMS @cart_item_count</div>
+                                        <div class="col cart-col text-success font-16 text-right">&dollar;@ViewBag.total</div>
+                                    </div>
+                                    <form class="cart-form">
+                                        <p>SHIPPING</p>
+                                        <select class="cart-select" id="mySelect" onchange="updateValue()">
+                                            <option value="-1" selected disabled>Select Delivery Option</option>
+                                            <option value="0" class="text-muted">Free Delivery (12 Days)</option>
+                                            <option value="5" class="text-muted">Fast Delivery - &dollar;5.00 (3 Days) </option>
+                                        </select>
+                                        <p>GIVE CODE</p>
+                                        <input class="cart-input" id="cart-code" placeholder="Enter your code" />
+                                    </form>
+                                    <div class="row cart-row"
+                                     style="padding: 2vh 0">
+                                        <div class="col cart-col">Delivery Fee</div>
+                                        <div class="col cart-col text-right text-danger font-14"><span id="valueDisplay"></span> </div>
+                                    </div>
+                                    <div class="row cart-row"
+                                     style="border-top: 1px solid rgba(0, 0, 0, 0.1); padding: 2vh 0">
+                                        <div class="col cart-col">TOTAL PRICE</div>
+                                        <div class="col cart-col text-right text-success font-16" id="total-price">$@ViewBag.total</div>
+                                    </div>
+                                    <button class="btn cart-btn">CHECKOUT</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+               </div>
+            </div>
+        </div>
+    </div>
+
+@section Scripts {
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function updateCartQuantity(productId, quantityChange) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateCartQuantity", "Cart")",
+                data: { productId: productId, quantityChange: quantityChange },
+                success: function (data) {
+                    if (data.success) {
+                        // Update the cart quantity on the page
+                        $('#cart-quantity').text(data.cartQuantity);
+                        location.reload();
+                    } else {
+                        alert("Error updating cart quantity.");
+                    }
+                },
+                error: function () {
+                    alert("Error updating cart quantity.");
+                }
+            });
+        }
+
+    </script>
+    <script>
+        function updateValue() {
+            var totalPrice = @ViewBag.total;
+            var selectElement = document.getElementById("mySelect");
+            var selectedValue = selectElement.options[selectElement.selectedIndex].value;
+            var valueDisplayElement = document.getElementById("valueDisplay");
+            var totalPriceElement = document.getElementById('total-price');
+            selectedValue == 0 ? valueDisplayElement.innerHTML = "<p>Free</P>" : valueDisplayElement.innerHTML = "&plus;&dollar;" + selectedValue;
+            var new_price = totalPrice + parseInt(selectedValue);
+            selectedValue == -1 ? totalPriceElement.innerHTML = "&dollar;" + totalPrice : totalPriceElement.innerHTML = "&dollar;" + new_price;
+        }
+    </script>
+}

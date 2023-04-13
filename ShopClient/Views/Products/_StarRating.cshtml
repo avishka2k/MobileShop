@@ -1,0 +1,9 @@
+﻿@model int
+
+<div class="star-rating">
+    <span class="fa fa-star @((Model >= 1) ? "checked" : "")"></span>
+    <span class="fa fa-star @((Model >= 2) ? "checked" : "")"></span>
+    <span class="fa fa-star @((Model >= 3) ? "checked" : "")"></span>
+    <span class="fa fa-star @((Model >= 4) ? "checked" : "")"></span>
+    <span class="fa fa-star @((Model >= 5) ? "checked" : "")"></span>
+</div>
