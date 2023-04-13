@@ -11,8 +11,9 @@ namespace ShopClient
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            //builder.Services.AddDbContext<CartDbContext>(option => option.UseInMemoryDatabase("contactDb"));
             builder.Services.AddDbContext<ProductDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ProductDbContext")));
-
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -23,7 +24,7 @@ namespace ShopClient
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
