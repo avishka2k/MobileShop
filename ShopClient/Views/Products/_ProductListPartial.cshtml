@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Product>
+
+@foreach (var item in Model)
+{
+ <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="product-thumbnail">
+                <div class="product-img-head">
+                    <div class="product-img">
+                        <img src="@ViewBag.AdminWebUrl/@item.FirstImageUrl"
+                     alt="@item.Title"
+                     class="img-fluid" />
+                    </div>
+                    <div class="ribbons"></div>
+                    <div class="ribbons-text">New</div>
+                    <div class="">
+                        <a href="#" class="product-wishlist-btn">
+                            <i class="fas fa-heart"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="product-content">
+                    <div class="product-content-head">
+                        <h3 class="product-title">
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </h3>
+                        <div class="product-rating d-inline-block">
+                            <i class="fa fa-fw fa-star"></i>
+                            <i class="fa fa-fw fa-star"></i>
+                            <i class="fa fa-fw fa-star"></i>
+                            <i class="fa fa-fw fa-star"></i>
+                            <i class="fa fa-fw fa-star"></i>
+                        </div>
+                        <div class="product-price">
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </div>
+                    </div>
+                    <div class="product-btn">
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-light">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+}

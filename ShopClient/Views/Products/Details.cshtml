@@ -3,82 +3,262 @@
 @{
     ViewData["Title"] = "Details";
 }
+<style>
+    .list-style-position{
+        list-style-position: inside;
+    }
 
-<h1>Details</h1>
+    
+</style>
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PictureUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PictureUrl)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BrandName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BrandName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Colors)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Colors)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Reviews)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Reviews)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReviewScore)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReviewScore)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Stock)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Stock)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Delivery)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Delivery)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SKU)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SKU)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<div class="dashboard-ecommerce">
+        <div class="container-fluid dashboard-content">
+            <!-- ============================================================== -->
+            <!-- pageheader  -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="page-header">
+                        <div class="page-breadcrumb">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="#" class="breadcrumb-link">Products</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="#" class="breadcrumb-link">@Html.DisplayFor(model => model.Id)</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        Details
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end pageheader  -->
+            <!-- ============================================================== -->
+            <div class="row">
+                <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0 m-b-30">
+                            <div class="container">
+                                <div class="carousel-container position-relative row">
+                                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                        <div class="carousel-inner">
+                                        @if (ViewBag.Images != null)
+                                        {
+                                            int index = 0;
+                                            foreach (var image in ViewBag.Images)
+                                            {
+                                                <div class="carousel-item @((index == 0) ? "active" : "")" data-slide-number="@index">
+                                                    <img src="@ViewBag.AdminWebUrl@image.Url" alt="@image.Name" class="d-block w-100" data-toggle="lightbox" data-gallery="example-gallery">
+                                                </div>
+                                                index++;
+                                            }
+                                        }
+                                    </div>
+                                    </div>
+
+                                    <!-- Carousel Navigation -->
+                                    <div id="carousel-thumbs" class="carousel slide " data-ride="carousel">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <div class="row mx-0">
+                                                    @if (ViewBag.Images != null)
+                                                    {
+                                                        int index1 = 0;
+                                                        foreach (var image in ViewBag.Images)
+                                                        {
+                                                            <div id="carousel-selector-@index1" class="thumb col-4 col-sm-2 px-1 py-2 @((index1 == 0) ? "selected" : "")" data-target="#myCarousel" data-slide-to="@index1">
+                                                                <img src="@ViewBag.AdminWebUrl@image.Url" alt="@image.Name" class="img-fluid">
+                                                            </div>
+                                                            index1++;
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div> <!-- /row -->
+                            </div> <!-- /container -->
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 border-left m-b-30">
+                            <div class="product-details">
+                                <div class="border-bottom pb-3 mb-3">
+                                    <h2 class="mb-3">@Html.DisplayFor(model => model.Title)</h2>
+                                    <div class="product-rating d-inline-block float-right">
+                                        @{
+                                            for (int i = 0; i < 4; i++)
+                                            {
+                                                <i class="fa fa-fw fa-star"></i>
+                                            }
+                                        }
+                                    </div>
+                                    <h1 class="mb-0 text-danger">$ @Html.DisplayFor(model => model.Price)</h1>
+                                </div>                                
+                                <div class="product-size border-bottom">
+                                    <div class="product-colors">
+                                    <h4>Select Colors</h4>
+                                    @if (ViewBag.Colors != null)
+                                    {
+                                        int index_color = 1;
+                                        foreach (var color in ViewBag.Colors)
+                                        {
+                                         <input type="radio"
+                                           class="radio"
+                                           style="background: @color.ColorCode"
+                                           id="color-radio-btn-@index_color"
+                                           name="group" />
+                                            <label style="background: @color.ColorCode" for="color-radio-btn-@index_color"></label>
+                                            <style>
+                                                #color-radio-btn-@index_color + label {
+                                                    left: -60vw;
+                                                    animation-delay: 0s;
+                                                }
+
+                                                #color-radio-btn-@index_color + label:before {
+                                                    transform: scale(0);
+                                                }
+
+                                                #color-radio-btn-@index_color:checked + label:before {
+                                                    transform: scale(1);
+                                                    transition: all .4s;
+                                                }
+                                            </style>
+                                            index_color++;
+                                        }
+                                    }
+                                </div>
+                                    <div class="product-qty">
+                                     <h4>Quantity</h4>
+                                     <div class="quantity">
+                                       <input type="number" min="1" max="@Html.DisplayFor(model => model.Stock)" step="1"/>
+                                     </div>
+                                    </div>                                   
+                                </div>
+                                <div class="product-description">
+                                    <h4 class="mb-1">Descriptions</h4>
+                                    <ul class="list-style-position p-0">
+                                        @if (ViewBag.Specifications != null)
+                                        {
+                                            foreach (var spec in ViewBag.Specifications)
+                                            {
+                                                <li>@spec.Name</li>
+                                            }
+                                        }
+                                    </ul>                                  
+                                </div>
+                                <div class="product-description">
+                                    <h4 class="mb-1">Brand</h4> 
+                                    <img class="w-25" src="@ViewBag.AdminWebUrl@Model.Brand.PictureUrl"/>
+                                </div>
+                                <div class="mt-5">
+                                <a href="#" class="btn btn-primary btn-block btn-lg">Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-60">
+                            <div class="simple-card">
+                                <ul class="nav nav-tabs" id="myTab5" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active border-left-0"
+                                           id="product-tab-1"
+                                           data-toggle="tab"
+                                           href="#tab-1"
+                                           role="tab"
+                                           aria-controls="product-tab-1"
+                                           aria-selected="true">Descriptions</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                           id="product-tab-2"
+                                           data-toggle="tab"
+                                           href="#tab-2"
+                                           role="tab"
+                                           aria-controls="product-tab-2"
+                                           aria-selected="false">Reviews</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent5">
+                                    <div class="tab-pane fade show active"
+                                         id="tab-1"
+                                         role="tabpanel"
+                                         aria-labelledby="product-tab-1">
+
+                                        @if (Model != null)
+                                        {
+                                            @Html.Raw(Model.Description)
+                                        }
+                                    </div>
+                                    <div class="tab-pane fade"
+                                         id="tab-2"
+                                         role="tabpanel"
+                                         aria-labelledby="product-tab-2">
+                                        <div class="review-block">
+                                            <p class="review-text font-italic m-0">
+                                                “Vestibulum cursus felis vel arcu convallis,
+                                                viverra commodo felis bibendum. Orci varius
+                                                natoque penatibus et magnis dis parturient montes,
+                                                nascetur ridiculus mus. Proin non auctor est, sed
+                                                lacinia velit. Orci varius natoque penatibus et
+                                                magnis dis parturient montes nascetur ridiculus
+                                                mus.”
+                                            </p>
+                                            <div class="rating-star mb-4">
+                                                <i class="fa fa-fw fa-star"></i>
+                                                <i class="fa fa-fw fa-star"></i>
+                                                <i class="fa fa-fw fa-star"></i>
+                                                <i class="fa fa-fw fa-star"></i>
+                                                <i class="fa fa-fw fa-star"></i>
+                                            </div>
+                                            <span class="text-dark font-weight-bold">Virgina G. Lightfoot</span><small class="text-mute"> (Company name)</small>
+                                        </div>
+                                        <div class="review-block border-top mt-3 pt-3">
+                                            <p class="review-text font-italic m-0">
+                                                “Integer pretium laoreet mi ultrices tincidunt.
+                                                Suspendisse eget risus nec sapien malesuada
+                                                ullamcorper eu ac sapien. Maecenas nulla orci,
+                                                varius ac tincidunt non, ornare a sem. Aliquam sed
+                                                massa volutpat, aliquet nibh sit amet, tincidunt
+                                                ex. Donec interdum pharetra dignissim.”
+                                            </p>
+                                            <div class="rating-star mb-4">
+                                                <i class="fa fa-fw fa-star"></i>
+                                                <i class="fa fa-fw fa-star"></i>
+                                                <i class="fa fa-fw fa-star"></i>
+                                                <i class="fa fa-fw fa-star"></i>
+                                                <i class="fa fa-fw fa-star"></i>
+                                            </div>
+                                            <span class="text-dark font-weight-bold">Ruby B. Matheny</span><small class="text-mute"> (Company name)</small>
+                                        </div>
+                                        <div class="review-block border-top mt-3 pt-3">
+                                            <p class="review-text font-italic m-0">
+                                                “ Cras non rutrum neque. Sed lacinia ex elit, vel
+                                                viverra nisl faucibus eu. Aenean faucibus neque
+                                                vestibulum condimentum maximus. In id porttitor
+                                                nisi. Quisque sit amet commodo arcu, cursus
+                                                pharetra elit. Nam tincidunt lobortis augueat
+                                                euismod ante sodales non. ”
+                                            </p>
+                                            <div class="rating-star mb-4">
+                                                <i class="fa fa-fw fa-star"></i>
+                                                <i class="fa fa-fw fa-star"></i>
+                                                <i class="fa fa-fw fa-star"></i>
+                                                <i class="fa fa-fw fa-star"></i>
+                                                <i class="fa fa-fw fa-star"></i>
+                                            </div>
+                                            <span class="text-dark font-weight-bold">Gloria S. Castillo</span><small class="text-mute"> (Company name)</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
