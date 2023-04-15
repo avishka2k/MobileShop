@@ -1,4 +1,6 @@
-﻿<style>
+﻿@model Checkout
+
+<style>
        body{
         vertical-align: middle;
         min-height: 100vh;
@@ -227,7 +229,9 @@
                                         <a class="cart-a" href="#">&leftarrow;</a><a asp-controller="Products" asp-action="Index" class="text-muted">Back to shop</a>
                                     </div>
                                 </div>
+
                                 <div class="col-md-4 summary cart-summary">
+                                    <form asp-action="Index" asp-controller="Checkout">
                                     <div>
                                         <h5 class="cart-h5"><b>Summary</b></h5>
                                     </div>
@@ -236,16 +240,16 @@
                                         <div class="col cart-col" style="padding-left: 0">ITEMS @cart_item_count</div>
                                         <div class="col cart-col text-success font-16 text-right">&dollar;@ViewBag.total</div>
                                     </div>
-                                    <form class="cart-form">
+                                    <div class="cart-form">
                                         <p>SHIPPING</p>
-                                        <select class="cart-select" id="mySelect" onchange="updateValue()">
-                                            <option value="-1" selected disabled>Select Delivery Option</option>
+                                            <select class="cart-select" id="mySelect" name="deliveryFee" onchange="updateValue()" required>
+                                            
                                             <option value="0" class="text-muted">Free Delivery (12 Days)</option>
                                             <option value="5" class="text-muted">Fast Delivery - &dollar;5.00 (3 Days) </option>
                                         </select>
                                         <p>GIVE CODE</p>
                                         <input class="cart-input" id="cart-code" placeholder="Enter your code" />
-                                    </form>
+                                    </div>
                                     <div class="row cart-row"
                                      style="padding: 2vh 0">
                                         <div class="col cart-col">Delivery Fee</div>
@@ -255,9 +259,12 @@
                                      style="border-top: 1px solid rgba(0, 0, 0, 0.1); padding: 2vh 0">
                                         <div class="col cart-col">TOTAL PRICE</div>
                                         <div class="col cart-col text-right text-success font-16" id="total-price">$@ViewBag.total</div>
+                                        <input type="hidden" asp-for="TotalPrice"/>
                                     </div>
-                                    <button class="btn cart-btn">CHECKOUT</button>
+                                    <button type="submit" class="btn cart-btn">CHECKOUT</button>
+                                    </form>
                                 </div>
+                                
                             </div>
                         </div>
                     }

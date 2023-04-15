@@ -212,5 +212,41 @@ namespace ShopClient.Controllers
         {
           return (_context.Products?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        public async Task<IActionResult> Search(string searchTerm, string[] brands, string[] categories)
+        {
+            string adminWebUrl = Environment.GetEnvironmentVariable("ASPNETCORE_WEB_URL");
+            ViewBag.AdminWebUrl = adminWebUrl;
+
+            var query = _context.Products
+                .Include(p => p.Brand)
+                .Include(p => p.Category)
+                .Include(p => p.Images)
+                .Include(p => p.Specifications)
+                .Include(p => p.Colors)
+                .AsQueryable(); // start with all products
+
+            if (brands != null && brands.Length > 0)
+            {
+                query = query.Where(p => brands.Contains(p.Brand.Name)); // filter by selected brands
+            }
+
+            if (categories != null && categories.Length > 0)
+            {
+                query = query.Where(p => categories.Contains(p.Category.Name)); // filter by selected categories
+            }
+
+            var uniqueColorCodes = _context.Colors
+                                .Select(c => c.ColorCode)
+                                .Distinct()
+                                .ToList();
+
+            ViewBag.UniqueColorCodes = uniqueColorCodes;
+
+           
+            var products = await query.Where(p => p.Title.Contains(searchTerm)).ToListAsync();
+            return View(products);
+        }
+
     }
 }

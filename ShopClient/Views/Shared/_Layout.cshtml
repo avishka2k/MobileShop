@@ -63,6 +63,11 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
+                    @using (Html.BeginForm("Search", "Products", FormMethod.Get))
+                    {
+                        <input type="text" name="searchTerm" />
+                        <button type="submit">Search</button>
+                    }
                 </div>
             </div>
         </nav>

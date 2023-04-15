@@ -14,11 +14,11 @@ namespace ShopClient.Data
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Specification> Specifications { get; set; }
         public DbSet<Color> Colors { get; set; }
-
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<Image>()
                .HasOne(i => i.Product)
                .WithMany(p => p.Images)
@@ -41,27 +41,10 @@ namespace ShopClient.Data
                .HasOne(t => t.Product)
                .WithMany(p => p.Colors)
                .HasForeignKey(t => t.ProductId);
+            modelBuilder.Entity<CartItem>()
+                .HasOne(t => t.Order)
+                .WithMany(p => p.Carts)
+                .HasForeignKey(t => t.OrderId);
         }
     }
-
-    public class ProductRepository
-    {
-        private readonly ProductDbContext _context;
-
-        public ProductRepository()
-        {
-            var builder = WebApplication.CreateBuilder();
-
-            var optionsBuilder = new DbContextOptionsBuilder<ProductDbContext>();
-            optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("ProductDbContext"));
-
-            _context = new ProductDbContext(optionsBuilder.Options);
-        }
-
-        public Product Find(int id)
-        {
-            return _context.Products.Find(id);
-        }
-    }
-
 }

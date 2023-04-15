@@ -136,7 +136,7 @@
                                     <div class="product-qty">
                                      <h4>Quantity</h4>
                                      <div class="quantity">
-                                       <input type="number" min="1" max="@Html.DisplayFor(model => model.Stock)" step="1"/>
+                                       <input type="number" min="1" max="@Html.DisplayFor(model => model.Stock)"  name="quantity" value="1" step="1"/>
                                      </div>
                                     </div>                                   
                                 </div>
@@ -157,7 +157,7 @@
                                     <img class="w-25" src="@ViewBag.AdminWebUrl@Model.Brand.PictureUrl"/>
                                 </div>
                                 <div class="mt-5">
-                                <a href="#" class="btn btn-primary btn-block btn-lg">Add to Cart</a>
+                                <a asp-controller="cart" asp-action="buy" asp-route-id="@Model.Id" class="btn btn-primary btn-block btn-lg">Add to Cart</a>
                                 </div>
                             </div>
                         </div>

@@ -1,0 +1,294 @@
+﻿@model IEnumerable<ShopClient.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+
+    <style>
+        .price-position{
+            bottom: 5px;
+            right: 10px;
+        }
+    </style> 
+}
+
+@if(@TempData["AlertMessage"] != null){
+<div class="alert alert-success">
+    @TempData["AlertMessage"]
+</div>
+}
+
+
+<div class="dashboard-ecommerce">
+    <div class="container">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb border-0">
+                                <li class="breadcrumb-item">
+                                    <a asp-action="Index" asp-controller="Home" class="breadcrumb-link">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Shop
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
+                <div class="product-sidebar">
+                    <div class="product-sidebar-widget">
+                        <h4 class="product-sidebar-widget-title">Category</h4>
+                        @{
+                            int category_i = 1;
+                            foreach (var category in Model.GroupBy(p => p.Category))
+                            {
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox"
+                                       class="custom-control-input category-checkbox"
+                                       id="cat-@category_i"
+                                       value="@category.Key.Id" />                              
+                                        <label class="custom-control-label" for="cat-@category_i">@category.Key.Name (@category.Count())</label>                                
+                                </div>
+                                category_i++;
+                            }
+                        }
+                    </div>
+                    <div class="product-sidebar-widget">
+                        <h4 class="product-sidebar-widget-title">Stock</h4>
+                        @{
+                            int instock_count = 0;
+                            int outstock_count = 0;
+                            foreach (var item in Model)
+                            {
+                                if (item.Stock == 0)
+                                    outstock_count++;
+                                else
+                                    instock_count++;
+                            }
+                        }
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="size-1" />
+                            <label class="custom-control-label" for="size-1">In Stock (@instock_count)</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="size-2" />
+                            <label class="custom-control-label" for="size-2">Out Stock (@outstock_count)</label>
+                        </div>  
+                     </div>
+                    <div class="product-sidebar-widget">
+                            <h4 class="product-sidebar-widget-title">Brand</h4>
+                        @{
+                            int brand_i = 1;
+                            foreach (var brand in Model.GroupBy(p => p.Brand))
+                            {
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox"
+                                       class="custom-control-input brand-checkbox"
+                                       id="brand-@brand_i"
+                                       value="@brand.Key.Id" />
+                                        <label class="custom-control-label" for="brand-@brand_i">@brand.Key.Name (@brand.Count())</label>
+                                </div>
+                                brand_i++;
+                            }
+                        }
+
+                    </div>
+                    <div class="product-sidebar-widget">
+                        <h4 class="product-sidebar-widget-title">Color</h4>
+                        <div class="product-colors">
+                        @{
+                            var uniqueColorCodes = ViewBag.UniqueColorCodes as List<string>;
+                            if (uniqueColorCodes != null)
+                            {
+                                int index_color = 1;
+                                foreach (var color in uniqueColorCodes)
+                                {
+                                    <input type="radio"
+                                           class="radio"
+                                           style="background: @color"
+                                           id="color-radio-btn-@index_color"
+                                           name="group" />
+                                    <label style="background: @color" for="color-radio-btn-@index_color"></label>
+                                    <style>
+                                        #color-radio-btn-@index_color + label {
+                                        left: -60vw;
+                                        animation-delay: 0s;
+                                        }
+
+                                        #color-radio-btn-@index_color + label:before {
+                                        transform: scale(0);
+                                        }
+
+                                        #color-radio-btn-@index_color:checked + label:before {
+                                        transform: scale(1);
+                                        transition: all .4s;
+                                        }
+                                    </style>
+                                    index_color++;
+                                }
+                            }
+                        }
+                        </div>
+                    </div>
+                    <div class="product-sidebar-widget">
+                            <h4 class="product-sidebar-widget-title">Price</h4>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="price-1" />
+                                <label class="custom-control-label" for="price-1">0 - 200</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="price-2" />
+                                <label class="custom-control-label" for="price-2">200 - 400</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="price-3" />
+                                <label class="custom-control-label" for="price-3">400 - 600</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="price-3" />
+                                <label class="custom-control-label" for="price-3">600 - 800</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox"
+                                   class="custom-control-input"
+                                   id="price-3" />
+                                <label class="custom-control-label" for="price-3">> 800</label>
+                            </div>
+                        </div>
+                    <div class="product-sidebar-widget">
+                        <a asp-action="Index" class="btn btn-outline-light">Reset Filter</a>
+                        <button id="filter-btn" class="btn btn-primary">Filter</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12 px-2">
+                <div class="product-list row" id="product-list">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 px-2">
+                            <div class="product-thumbnail">
+                                <div class="product-img-head product-card-comp position-relative">
+                                @{
+                                    /*
+                                    <div class="position-absolute">
+                                        @{
+                                            if (item.Stock == 0)
+                                            {
+                                            <div class="m-2 py-1 px-3 bg-danger text-white">Out Stock</div>
+                                            }
+                                            else
+                                            {
+                                            <div class="m-2 py-1 px-3 bg-success text-white">In Stock</div>
+                                            }
+                                        }
+                                    </div>
+                                    <div class="position-absolute price-position font-bold text-danger font-22">
+                                           $ @Html.DisplayFor(modelItem => item.Price)
+                                    </div>
+                                    */
+                                    }
+                                    
+                                    <div class="position-absolute bookmark-icon">
+                                    <i class="fas fa-bookmark font-22 pr-2"></i>
+                                    </div>
+                                    <a asp-action="Details" asp-route-id="@item.Id" >
+                                    <div class="w-75 m-auto product-card-img">
+                                        <img src="@ViewBag.AdminWebUrl/@item.FirstImageUrl"
+                                         alt="@item.Title"
+                                         class="img-fluid" />
+                                    </div>  
+                                    </a>
+                                    <div class="px-3">
+                                    <div class="product-content-head m-1">
+                                        <p class="font-12 m-0 pb-1">@Html.DisplayFor(modelItem => item.Category.Name)</p>  
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="product-title product-cart-title">
+                                            @Html.DisplayFor(modelItem => item.Title)
+                                        </a>
+                                        <br/>
+                                        <div class="product-rating d-inline-block">
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                        </div>
+                                        <div class="row px-3 pt-2 align-content-center justify-content-between">
+                                            <h3 class="text-danger mt-1">$ @Html.DisplayFor(modelItem => item.Price)</h3>
+                                            <a asp-controller="cart" asp-action="buy" asp-route-id="@item.Id">
+                                            <div class="subtract-w align-content-center">
+                                                <img src="~/assets/icons/subtract-w.png" class="w-100 h-100 p-2"/>
+                                            </div>    
+                                            </a>
+                                        </div>
+                                    </div>                                 
+                                </div>
+                               </div>                               
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(function () {
+            // Handle filter button click
+            $('#filter-btn').click(function () {
+                // Get selected categories and brands
+                var categories = [];
+                var brands = [];
+
+                $('.category-checkbox:checked').each(function () {
+                    categories.push($(this).val());
+                });
+
+                $('.brand-checkbox:checked').each(function () {
+                    brands.push($(this).val());
+                });
+
+                // Send AJAX request to retrieve filtered products
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("FilterProducts", "Products")',
+                    data: { categories: categories, brands: brands },
+                    success: function (data) {
+                        // Replace product list with filtered products
+                        $('#product-list').html(data);
+                    },
+                    error: function () {
+                        alert('Error retrieving filtered products.');
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+}
+
+
+
+
