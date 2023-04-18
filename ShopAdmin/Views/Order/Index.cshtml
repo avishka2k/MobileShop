@@ -1,0 +1,137 @@
+﻿@model IEnumerable<ShopAdmin.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <!-- ============================================================== -->
+        <!-- pageheader -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Products</h2>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a asp-action="Index" class="breadcrumb-link">Products</a>
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="page-breadcrumb float-right pb-3">
+                        <a class="btn btn-primary" asp-controller="Products" asp-action="Create">New Product</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader -->
+        <!-- ============================================================== -->
+
+        <div class="row">
+            <!-- ============================================================== -->
+            <!-- fixed header  -->
+            <!-- ============================================================== -->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example4"
+                                   class="table text-center table-bordered"
+                                   style="">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            SKU
+                                        </th>
+                                        <th>
+                                            Order Date
+                                        </th>
+                                        <th>
+                                            Customer Name
+                                        </th>
+                                        <th>
+                                            Product
+                                        </th>
+                                        <th>
+                                            Order Status
+                                        </th>
+                                        <th>
+                                            Delivery
+                                        </th>
+                                        <th>
+                                            Delivery Status
+                                        </th>
+                                        <th>
+                                            Price
+                                        </th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Id)
+
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DateAndTime)
+                                            </td>
+                                            <td>
+                                                @(item.FirstName + " " + item.LastName)
+                                            </td>
+                                            <td>
+                                                @if (item.Carts != null)
+                                                {
+                                                    @item.Carts.Count();
+                                                }
+                                            </td>
+                                            <td>
+                                                <span class="label label-success">Success Label</span>
+                                            </td>
+                                            <td>                                               
+                                                @{
+                                                    double delivery = item.Delivery;
+                                                    if (delivery == 0)
+                                                    {
+                                                        <span>Free Delivery</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>Fast Delivery</span>
+                                                    }
+                                                }
+                                            </td>
+                                            <td>
+                                                Delivery Status
+                                            </td>
+                                            <td>
+                                               &dollar;@Html.DisplayFor(modelItem => item.TotalPrice)
+                                            </td>
+                                            <td class="gap-5 text-center">
+
+                                                <a asp-action="Edit" asp-route-id="@item.Id"><i class="far fa-edit text-primary mr-2"></i></a>
+                                                <a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-eye text-primary mr-2"></i></a>
+                                                <a asp-action="Delete" asp-route-id="@item.Id"><i class="far fa-trash-alt text-danger"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end fixed header  -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+</div>
+

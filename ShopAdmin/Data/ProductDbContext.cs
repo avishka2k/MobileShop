@@ -19,7 +19,8 @@ namespace ShopAdmin.Data
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Specification> Specifications { get; set; }
         public DbSet<Color> Colors { get; set; }
-
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,6 +47,10 @@ namespace ShopAdmin.Data
                .HasOne(t => t.Product)
                .WithMany(p => p.Colors)
                .HasForeignKey(t => t.ProductId);
+            modelBuilder.Entity<CartItem>()
+                .HasOne(t => t.Order)
+                .WithMany(p => p.Carts)
+                .HasForeignKey(t => t.OrderId);
         }
     }
 }

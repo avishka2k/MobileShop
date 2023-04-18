@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,11 +16,12 @@ namespace ShopAdmin.Controllers
     {
         private readonly ProductDbContext _context;
         private readonly IWebHostEnvironment environment;
-
+        private readonly string randomString;
         public ProductsController(ProductDbContext context, IWebHostEnvironment environment)
         {
             _context = context;
             this.environment = environment;
+            randomString = GenerateRandomString(8);
         }
 
         // GET: Products
@@ -60,6 +62,9 @@ namespace ShopAdmin.Controllers
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
             ViewData["BrandId"] = new SelectList(_context.Brands, "Id", "Name");
+             
+            ViewBag.SkuNumber = randomString;
+       
             return View();
         }
 
@@ -70,7 +75,7 @@ namespace ShopAdmin.Controllers
             var guid = $"{Guid.NewGuid()}";
 
             product.FirstImageUrl = $"/images/products/{guid}_{Images[0].FileName}";
-
+            product.SKU = randomString;
             await _context.Products.AddAsync(product);
             _context.SaveChanges();
 
@@ -168,12 +173,9 @@ namespace ShopAdmin.Controllers
                     _context.Images.Add(newImage);
                 }
             }
-
             await _context.SaveChangesAsync();
-
             return RedirectToAction(nameof(Index));
         }
-
 
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -189,7 +191,6 @@ namespace ShopAdmin.Controllers
             {
                 return NotFound();
             }
-
             return View(product);
         }
 
@@ -228,10 +229,33 @@ namespace ShopAdmin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
         private bool ProductExists(int id)
         {
           return (_context.Products?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        private string GenerateRandomString(int length)
+        {
+            Random random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const string numbers = "0123456789";
+            StringBuilder sb = new StringBuilder();
+
+            // generate the first two characters
+            for (int i = 0; i < 2; i++)
+            {
+                sb.Append(chars[random.Next(chars.Length)]);
+            }
+
+            // generate the remaining characters
+            for (int i = 2; i < length; i++)
+            {
+                sb.Append(numbers[random.Next(numbers.Length)]);
+            }
+
+            return sb.ToString();
+        }
+
+
     }
 }
