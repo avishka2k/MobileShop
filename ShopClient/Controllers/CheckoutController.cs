@@ -79,7 +79,6 @@ namespace ShopClient.Controllers
                 {
                     ProductId = item.Product.Id,
                     Quantity = item.Quantity,
-                    Delivery = deliveryFee
                 };
                 // Add the orderItem to the Carts property
                 model.Carts.Add(orderItem);
