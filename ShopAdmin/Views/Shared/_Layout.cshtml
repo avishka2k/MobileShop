@@ -152,12 +152,11 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav flex-column">
-                            <li class="nav-divider">Menu</li>
                             <li class="nav-item">
                                 <div id="submenu-1-2" class="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" asp-controller="Products" asp-action="Index">Product Dashboard</a>
+                                            <a class="nav-link" asp-controller="Home" asp-action="Index">Dashboard</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" asp-controller="Products" asp-action="Index">Products</a>
@@ -169,7 +168,7 @@
                                             <a class="nav-link" asp-controller="Brands" asp-action="Index">Brands</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="ecommerce-product-checkout.html">Orders</a>
+                                            <a class="nav-link" asp-controller="Order" asp-action="Index">Orders</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="ecommerce-product-checkout.html">Subscribers</a>

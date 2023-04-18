@@ -51,9 +51,6 @@ namespace ShopClient.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("Delivery")
-                        .HasColumnType("float");
-
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 

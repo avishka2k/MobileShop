@@ -1,41 +1,213 @@
-﻿
+﻿@model HomeViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    .dashboard-wrapperhome {
+        position: fixed;
+        width: -webkit-fill-available;
+    }
+</style>
 
-<div class="dashboard-main-wrapper">
-    <!-- ============================================================== -->
-    <div class="dashboard-wrapper">
-        <div class="container-fluid dashboard-content">
-            <!-- ============================================================== -->
-            <!-- pageheader -->
-            <!-- ============================================================== -->
+<div class="dashboard-wrapper dashboard-wrapperhome">
+    <div class="container-fluid dashboard-content">
+        <!-- ============================================================== -->
+        <!-- pageheader -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Dashboard</h2>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a asp-action="Index" class="breadcrumb-link">Dashboard</a>
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader -->
+        <!-- ============================================================== -->
+        <div class="ecommerce-widget">
             <div class="row">
-                <div class="col-xl col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="page-header">
-                        <h2 class="pageheader-title">Data Tables</h2>
-                        <div class="page-breadcrumb">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="#" class="breadcrumb-link">Dashboard</a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        <a href="#" class="breadcrumb-link">Tables</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">
-                                        Data Tables
-                                    </li>
-                                </ol>
-                            </nav>
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h5 class="text-muted">Sales</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">
+                                    @{
+                                        double sales = 0;
+                                        foreach (var item in Model.Orders)
+                                        {
+                                            sales += @item.TotalPrice;
+                                        }
+                                    }
+                                    &dollar;@sales
+                                </h1>
+                            </div>
+                            <div class="metric-label d-inline-block float-right font-weight-bold">
+                                @{
+                                    if (ViewBag.RevenueIncrease >= 0)
+                                    {
+                                        <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span>
+                                        <span class="ml-1 text-success">@ViewBag.RevenueIncrease.ToString("0.00")%</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="icon-circle-small icon-box-xs text-danger bg-danger-light bg-danger-light"><i class="fa fa-fw fa-arrow-down"></i></span>
+                                        <span class="ml-1 text-danger">@ViewBag.RevenueIncrease.ToString("0.00")%</span>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h5 class="text-muted">Total Orders</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">
+                                    @Model.Orders.Count()                                 
+                                </h1>
+                            </div>
+                            <div class="metric-label d-inline-block float-right text-success font-weight-bold">
+                                @{
+                                    if (ViewBag.RevenueIncrease >= 0)
+                                    {
+                                        <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span>
+                                        <span class="ml-1 text-success">@ViewBag.OrderIncrease.ToString("0.00")%</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="icon-circle-small icon-box-xs text-danger bg-danger-light bg-danger-light"><i class="fa fa-fw fa-arrow-down"></i></span>
+                                        <span class="ml-1 text-danger">@ViewBag.OrderIncrease.ToString("0.00")%</span>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h5 class="text-muted">Visitor</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">13000</h1>
+                            </div>
+                            <div class="metric-label d-inline-block float-right text-success font-weight-bold">
+                                <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">5%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h5 class="text-muted">New Subscribers</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">1340</h1>
+                            </div>
+                            <div class="metric-label d-inline-block float-right text-danger font-weight-bold">
+                                <span class="icon-circle-small icon-box-xs text-danger bg-danger-light bg-danger-light"><i class="fa fa-fw fa-arrow-down"></i></span><span class="ml-1">4%</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- ============================================================== -->
-            <!-- end pageheader -->
-            <!-- ============================================================== -->
+            <div class="row">
+                <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Recent Orders</h5>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead class="bg-light">
+                                        <tr class="border-0">
+                                            <th class="border-0">Order Id</th>
+                                            <td class="border-0">Order Date</td>
+                                            <th class="border-0">Customer Name</th>
+                                            <th class="border-0">Price</th>
+                                            <th class="border-0">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in Model.Orders.Take(6))
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Id)
+
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.DateAndTime)
+                                                </td>
+                                                <td>
+                                                    @(item.FirstName + " " + item.LastName)
+                                                </td>
+                                                <td>
+                                                    &dollar;@Html.DisplayFor(modelItem => item.TotalPrice)
+                                                </td>
+                                                <td>
+                                                    <span class="label label-success">Success Label</span>
+                                                </td>                                            
+                                            </tr>
+                                        }
+                                        <tr>
+                                            <td colspan="9">
+                                                <a asp-controller="Order" asp-action="Index" class="btn btn-outline-light float-right">View Details</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-12 col-md-6 col-sm-12 col-12">
+                    <!-- ============================================================== -->
+                    <!-- top perfomimg  -->
+                    <!-- ============================================================== -->
+                    <div class="card">
+                        <h5 class="card-header">Top Selling products</h5>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table no-wrap p-table table-hover">
+                                    <thead class="bg-light">
+                                        <tr class="border-0">
+                                            <th class="border-0">Product</th>
+                                            <th class="border-0">Sales</th>
+                                            <th class="border-0">Revenue</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            foreach (var toporder in ViewBag.TopSellingProducts)
+                                            {
+
+                                                <tr>
+                                                    <td><a asp-controller="Products" asp-action="Details" asp-route-id="@toporder.Product.Id">@toporder.Product.SKU</a></td>
+                                                    <td>@toporder.Quantity</td>
+                                                    <td>&dollar;@(Convert.ToInt32(toporder.Product.Price) * Convert.ToInt32(toporder.Quantity))</td>                                                    
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 
