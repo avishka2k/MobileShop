@@ -17,5 +17,6 @@
         public string State { get; set; }
         public int ZipCode { get; set; }
         public string Payment { get; set; }
+        public int OrderStatus { get; set; }
     }
 }
