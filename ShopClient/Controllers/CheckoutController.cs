@@ -65,11 +65,9 @@ namespace ShopClient.Controllers
             double total = subtotal + deliveryFee;
             DateTime orderDate = DateTime.Now;
 
-            // Initialize the Carts property with a new list
             model.Carts = new List<CartItem>();
-
             model.DateAndTime = orderDate;
-
+            model.OrderStatus = 0;
             await _context.Orders.AddAsync(model);
             _context.SaveChanges();
 
@@ -79,12 +77,10 @@ namespace ShopClient.Controllers
                 {
                     ProductId = item.Product.Id,
                     Quantity = item.Quantity,
+                    Color = item.Color
                 };
-                // Add the orderItem to the Carts property
                 model.Carts.Add(orderItem);
             }
-
-            // Update the Order record with the new list of CartItems
             _context.Orders.Update(model);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(OrderConfirmation));
