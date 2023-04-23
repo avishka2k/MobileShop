@@ -32,14 +32,14 @@ namespace ShopClient.Controllers
             return View();
         }
 
-        [Route("buy/{id}")]
-        public IActionResult Buy(int id)
+        [Route("buy/{id}/{color}/{quantity}")]
+        public IActionResult Buy(int id, string color, int quantity)
         {
             ProductRepository productRepository = new ProductRepository();
             if (SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart") == null)
             {
                 List<CartItem> cart = new List<CartItem>();
-                cart.Add(new CartItem { Product = productRepository.Find(id), Quantity = 1 });
+                cart.Add(new CartItem { Product = productRepository.Find(id), Quantity = quantity, Color = color });
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
                 TempData["AlertMessage"] = "Success";
             }
@@ -53,7 +53,7 @@ namespace ShopClient.Controllers
                 }
                 else
                 {
-                    cart.Add(new CartItem { Product = productRepository.Find(id), Quantity = 1 });
+                    cart.Add(new CartItem { Product = productRepository.Find(id), Quantity = quantity, Color = color });
                 }
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }
@@ -110,7 +110,5 @@ namespace ShopClient.Controllers
             }
             return cart.Sum(item => item.Quantity);
         }
-
-
     }
 }
