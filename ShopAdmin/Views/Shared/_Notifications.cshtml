@@ -1,0 +1,51 @@
+﻿@model ShopAdmin.Models.Notifications
+
+@foreach (var item in Model.Orders.Take(5).OrderByDescending(p => p.DateAndTime))
+{
+   <a href="#" class="list-group-item list-group-item-action active">
+    <div class="notification-info">
+        <div class="notification-list-user-img"><img width="30" height="30" src="assets/images/avatar-2.jpg" alt="" class="user-avatar-md rounded-circle"></div>
+        <div class="notification-list-user-block">
+            <span class="notification-list-user-name">@(item.FirstName + item.LastName)</span>accepted your invitation to join the team.
+            <div class="notification-date">
+
+                @{
+                        DateTime now = DateTime.Now;
+                        DateTime past =  item.DateAndTime;
+                        TimeSpan timeDiff = now - past;
+
+                        string timeAgo;
+
+                        if (timeDiff.TotalSeconds < 60)
+                        {
+                            timeAgo = $"{(int)timeDiff.TotalSeconds} sec ago";
+                        }
+                        else if (timeDiff.TotalMinutes < 60)
+                        {
+                            timeAgo = $"{(int)timeDiff.TotalMinutes} min ago";
+                        }
+                        else if (timeDiff.TotalHours < 24)
+                        {
+                            timeAgo = $"{(int)timeDiff.TotalHours} hours ago";
+                        }
+                        else if (timeDiff.TotalDays < 7)
+                        {
+                            timeAgo = $"{(int)timeDiff.TotalDays} days ago";
+                        }
+                        else if (timeDiff.TotalDays < 365)
+                        {
+                            int weeks = (int)(timeDiff.TotalDays / 7);
+                            timeAgo = $"{weeks} {(weeks == 1 ? "week" : "weeks")} ago";
+                        }
+                        else
+                        {
+                            int years = (int)(timeDiff.TotalDays / 365);
+                            timeAgo = $"{years} {(years == 1 ? "year" : "years")} ago";
+                        }
+                }
+                    @timeAgo
+            </div>
+        </div>
+    </div>
+</a> 
+}

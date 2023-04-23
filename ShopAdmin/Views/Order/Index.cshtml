@@ -12,18 +12,15 @@
         <div class="row">
             <div class="col-xl col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
-                    <h2 class="pageheader-title">Products</h2>
+                    <h2 class="pageheader-title">Orders</h2>
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a asp-action="Index" class="breadcrumb-link">Products</a>
+                                    <a asp-action="Index" class="breadcrumb-link">Orders</a>
                                 </li>
                             </ol>
                         </nav>
-                    </div>
-                    <div class="page-breadcrumb float-right pb-3">
-                        <a class="btn btn-primary" asp-controller="Products" asp-action="Create">New Product</a>
                     </div>
                 </div>
             </div>
@@ -114,12 +111,11 @@
                                             <td>
                                                &dollar;@Html.DisplayFor(modelItem => item.TotalPrice)
                                             </td>
-                                            <td class="gap-5 text-center">
-
-                                                <a asp-action="Edit" asp-route-id="@item.Id"><i class="far fa-edit text-primary mr-2"></i></a>
-                                                <a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-eye text-primary mr-2"></i></a>
-                                                <a asp-action="Delete" asp-route-id="@item.Id"><i class="far fa-trash-alt text-danger"></i></a>
+                                           
+                                            <td colspan="9">
+                                                <a asp-action="Details" asp-route-id="@item.Id" class="btn text-primary">View Details</a>
                                             </td>
+                                        
                                         </tr>
                                     }
                                 </tbody>
