@@ -3,6 +3,20 @@
 @{
     ViewData["Title"] = "Index";
 }
+<style>
+    .table-borderless td, .table-borderless th {
+        border: none;
+    }
+    .color-rounded-item{
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        margin: auto;
+    }
+    .label-warning{
+        background-color: #f0ad4e;
+    }
+</style>
 
 <div class="dashboard-wrapper">
     <div class="container-fluid dashboard-content">
@@ -12,27 +26,339 @@
         <div class="row">
             <div class="col-xl col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
-                    <h2 class="pageheader-title">Products</h2>
+                    <h2 class="pageheader-title">Orders</h2>
                     <div class="page-breadcrumb">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a asp-action="Index" class="breadcrumb-link">Products</a>
+                                    <a asp-action="Index" class="breadcrumb-link">Orders</a>
                                 </li>
                             </ol>
                         </nav>
                     </div>
-                    <div class="page-breadcrumb float-right pb-3">
-                        <a class="btn btn-primary" asp-controller="Products" asp-action="Create">New Product</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-5 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h2 class="font-24 mb-0">@(Model.FirstName + " "+ Model.LastName)</h2>
+                        </div>
+                    </div>
+                    <div class="card-body border-top">
+                        <h3 class="font-16">Contact Information</h3>
+                        <div class="">
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><i class="fas fa-fw fa-envelope mr-2"></i>@Html.DisplayFor(model => model.Email)</li>
+                                <li class="mb-0"><i class="fas fa-fw fa-phone mr-2"></i>@Html.DisplayFor(model => model.PhoneNumber)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body border-top">
+                        <h3 class="font-16">Delivery</h3>
+                        <div class="">
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2 d-flex">
+                                    <p class="font-bold">Delivery type:&nbsp;</p>
+                                    @{
+                                        string dvtyp = "";
+                                        if(Model.Delivery == 0)
+                                        {
+                                            dvtyp = "Free Delivery";
+                                        }
+                                        else
+                                        {
+                                            dvtyp = "Fast Delivery";
+                                        }
+                                    }
+                                    @dvtyp
+                                </li>
+                                @*<li class="mb-0"><i class="fas fa-fw fa-map mr-2"></i>
+                                    @(Model.Country + ", " + Model.State + ", " + Model.Address1 + ", " + Model.Address2 + " " + Model.ZipCode)
+                                </li>*@
+                                <li class="mb-1 font-bold">Address:</li>
+                                <li class="mb-0">@Model.Country,</li>
+                                <li class="mb-0">@Model.State,</li>
+                                <li class="mb-0">@Model.Address1,</li>
+                                <li class="mb-0">@Model.Address2</li>
+                                <li class="mb-0">@Model.ZipCode</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body border-top">
+                        <h3 class="font-16">Purchase Details</h3>
+                        <div class="">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td>Order Id</td>
+                                        <td class="font-16">@Model.Id</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Order Date</td>
+                                        <td class="font-16">@Model.DateAndTime</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Paid</td>
+                                        <td class="font-18 text-success" >&dollar;@(Model.TotalPrice + Model.Delivery)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            @*<ul class="mb-0 list-unstyled">
+                                <li class="mb-1"><a href="#"><i class="fab fa-fw fa-facebook-square mr-1 facebook-color"></i>fb.me/michaelchristy</a></li>
+                                <li class="mb-1"><a href="#"><i class="fab fa-fw fa-twitter-square mr-1 twitter-color"></i>twitter.com/michaelchristy</a></li>
+                                <li class="mb-1"><a href="#"><i class="fab fa-fw fa-instagram mr-1 instagram-color"></i>instagram.com/michaelchristy</a></li>
+                                <li class="mb-1"><a href="#"><i class="fas fa-fw fa-rss-square mr-1 rss-color"></i>michaelchristy.com/blog</a></li>
+                                <li class="mb-1"><a href="#"><i class="fab fa-fw fa-pinterest-square mr-1 pinterest-color"></i>pinterest.com/michaelchristy</a></li>
+                                <li class="mb-1"><a href="#"><i class="fab fa-fw fa-youtube mr-1 youtube-color"></i>youtube/michaelchristy</a></li>
+                            </ul>*@
+                        </div>
+                    </div>
+                    <div class="card-body border-top m-auto">
+                        <a href="#" class="btn btn-outline-light">Order Cancel</a>
+                        <a href="#" class="btn btn-primary">Delivery Order</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-7 col-sm-12 col-12">
+                <div class="influence-profile-content pills-regular">
+                    <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="pills-campaign-tab" data-toggle="pill" href="#pills-campaign" role="tab" aria-controls="pills-campaign" aria-selected="true">Order List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-delivery-tab" data-toggle="pill" href="#pills-delivery" role="tab" aria-controls="pills-delivery" aria-selected="false">Delivery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-selected="false">Reviews</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-msg-tab" data-toggle="pill" href="#pills-msg" role="tab" aria-controls="pills-msg" aria-selected="false">Send Messages</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-campaign" role="tabpanel" aria-labelledby="pills-campaign-tab">
+                            <div class="section-block">
+                                <h3 class="section-title">Order Item List</h3>
+                            </div>
+                            @if (Model.Carts != null)
+                            {
+                                foreach (var item in Model.Carts)
+                                {
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <div class="media influencer-profile-data d-flex align-items-center p-2">
+                                                        <div class="mr-4">
+                                                            <img src="@item.Product.FirstImageUrl" alt="User Avatar" class="user-avatar-xl">
+                                                        </div>
+                                                        <div class="media-body ">
+                                                            <div class="influencer-profile-data">
+                                                                <h3 class="m-b-10">
+                                                                    <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Product.Id">@item.Product.Title</a>
+                                                                </h3>
+                                                                <p>
+                                                                    <span class="m-r-20 d-inline-block">
+                                                                        SKU:
+                                                                        <span class="m-l-10 text-primary">@item.Product.SKU</span>
+                                                                    </span>
+                                                                    <span class="m-r-20 d-inline-block">
+                                                                        Category:
+                                                                        <span class="m-l-10 text-primary">@item.Product.Category.Name</span>
+                                                                    </span>
+                                                                    <span class="m-r-20 d-inline-block">
+                                                                        Brand <span class="m-l-10  text-primary">@item.Product.Brand.Name</span>
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="border-top card-footer p-0">
+                                            <div class="campaign-metrics d-xl-inline-block">
+                                                <h4 class="mb-0">@item.Quantity</h4>
+                                                <p>Quantity</p>
+                                            </div>
+                                            <div class="campaign-metrics d-xl-inline-block">
+                                                <div class="color-rounded-item" style="background : #@item.Color">
+
+                                                </div>
+                                                <p>Color</p>
+                                            </div>
+                                            <div class="campaign-metrics d-xl-inline-block">
+                                                <h4 class="mb-0">&dollar;@item.Product.Price</h4>
+                                                <p>Price</p>
+                                            </div>
+                                            <div class="campaign-metrics d-xl-inline-block">
+                                                @if(Model.OrderStatus == 0)
+                                                {
+                                                    <span class="label label-warning">Pending</span>
+                                                }
+                                                else if (Model.OrderStatus == 1)
+                                                {
+                                                    <span class="label label-success">Delivered</span>
+                                                }
+                                                else if (Model.OrderStatus == -1)
+                                                {
+                                                    <span class="label label-danger">Canceled</span>
+                                                }
+                                                <p>Delivery Status</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <div class="tab-pane fade" id="pills-delivery" role="tabpanel" aria-labelledby="pills-delivery-tab">
+                            <div class="card">
+                                <h5 class="card-header">Delivery Update</h5>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="row">
+                                            <div class="offset-xl-3 col-xl-6 offset-lg-3 col-lg-3 col-md-12 col-sm-12 col-12 p-4">
+                                                <div class="form-group">
+                                                    <label for="name">Your Name</label>
+                                                    <input type="text" class="form-control form-control-lg" id="name" placeholder="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="email">Your Email</label>
+                                                    <input type="email" class="form-control form-control-lg" id="email" placeholder="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="subject">Subject</label>
+                                                    <input type="text" class="form-control form-control-lg" id="subject" placeholder="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="messages">Messgaes</label>
+                                                    <textarea class="form-control" id="messages" rows="3"></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary float-right">Send Message</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
+                            <div class="card">
+                                <h5 class="card-header">Campaign Reviews</h5>
+                                <div class="card-body">
+                                    <div class="review-block">
+                                        <p class="review-text font-italic m-0">“Quisque lobortis vestibulum elit, vel fermentum elit pretium et. Nullam id ultrices odio. Cras id nulla mollis, molestie diam eu, facilisis tortor. Mauris ultrices lectus laoreet commodo hendrerit. Nullam varius arcu sed aliquam imperdiet. Etiam ut luctus augue.”</p>
+                                        <div class="rating-star mb-4">
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                        </div>
+                                        <span class="text-dark font-weight-bold">Tabitha C. Campbell</span><small class="text-mute"> (Company name)</small>
+                                    </div>
+                                </div>
+                                <div class="card-body border-top">
+                                    <div class="review-block">
+                                        <p class="review-text font-italic m-0">“Maecenas rutrum viverra augue. Nulla in eros vitae ante ullamcorper congue. Praesent tristique massa ac arcu dapibus tincidunt. Mauris arcu mi, lacinia et ipsum vel, sollicitudin laoreet risus.”</p>
+                                        <div class="rating-star mb-4">
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                        </div>
+                                        <span class="text-dark font-weight-bold">Luise M. Michet</span><small class="text-mute"> (Company name)</small>
+                                    </div>
+                                </div>
+                                <div class="card-body border-top">
+                                    <div class="review-block">
+                                        <p class="review-text font-italic m-0">“ Cras non rutrum neque. Sed lacinia ex elit, vel viverra nisl faucibus eu. Aenean faucibus neque vestibulum condimentum maximus. In id porttitor nisi. Quisque sit amet commodo arcu, cursus pharetra elit. Nam tincidunt lobortis augueat euismod ante sodales non. ”</p>
+                                        <div class="rating-star mb-4">
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                        </div>
+                                        <span class="text-dark font-weight-bold">Gloria S. Castillo</span><small class="text-mute"> (Company name)</small>
+                                    </div>
+                                </div>
+                                <div class="card-body border-top">
+                                    <div class="review-block">
+                                        <p class="review-text font-italic m-0">“Vestibulum cursus felis vel arcu convallis, viverra commodo felis bibendum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin non auctor est, sed lacinia velit. Orci varius natoque penatibus et magnis dis parturient montes nascetur ridiculus mus.”</p>
+                                        <div class="rating-star mb-4">
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                        </div>
+                                        <span class="text-dark font-weight-bold">Virgina G. Lightfoot</span><small class="text-mute"> (Company name)</small>
+                                    </div>
+                                </div>
+                                <div class="card-body border-top">
+                                    <div class="review-block">
+                                        <p class="review-text font-italic m-0">“Integer pretium laoreet mi ultrices tincidunt. Suspendisse eget risus nec sapien malesuada ullamcorper eu ac sapien. Maecenas nulla orci, varius ac tincidunt non, ornare a sem. Aliquam sed massa volutpat, aliquet nibh sit amet, tincidunt ex. Donec interdum pharetra dignissim.”</p>
+                                        <div class="rating-star mb-4">
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                            <i class="fa fa-fw fa-star"></i>
+                                        </div>
+                                        <span class="text-dark font-weight-bold">Ruby B. Matheny</span><small class="text-mute"> (Company name)</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item active"><a class="page-link " href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="tab-pane fade" id="pills-msg" role="tabpanel" aria-labelledby="pills-msg-tab">
+                            <div class="card">
+                                <h5 class="card-header">Send Messages</h5>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="row">
+                                            <div class="offset-xl-3 col-xl-6 offset-lg-3 col-lg-3 col-md-12 col-sm-12 col-12 p-4">
+                                                <div class="form-group">
+                                                    <label for="name">Your Name</label>
+                                                    <input type="text" class="form-control form-control-lg" id="name" placeholder="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="email">Your Email</label>
+                                                    <input type="email" class="form-control form-control-lg" id="email" placeholder="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="subject">Subject</label>
+                                                    <input type="text" class="form-control form-control-lg" id="subject" placeholder="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="messages">Messgaes</label>
+                                                    <textarea class="form-control" id="messages" rows="3"></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary float-right">Send Message</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- ============================================================== -->
-        <!-- end pageheader -->
-        <!-- ============================================================== -->
-
-        <div class="row">
+        @*<div class="row">
             <!-- ============================================================== -->
             <!-- fixed header  -->
             <!-- ============================================================== -->
@@ -122,7 +448,7 @@
             <!-- ============================================================== -->
             <!-- end fixed header  -->
             <!-- ============================================================== -->
-        </div>
+        </div>*@
     </div>
 </div>
 
