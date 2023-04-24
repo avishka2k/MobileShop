@@ -105,13 +105,14 @@
                                     <h4>Select Colors</h4>
                                     @if (ViewBag.Colors != null)
                                     {
-                                        int index_color = 1;
+                                        int index_color = 1;                                       
                                         foreach (var color in ViewBag.Colors)
                                         {
                                          <input type="radio"
                                            class="radio"
                                            style="background: @color.ColorCode"
                                            id="color-radio-btn-@index_color"
+                                           value="@color.ColorCode"
                                            name="group" />
                                             <label style="background: @color.ColorCode" for="color-radio-btn-@index_color"></label>
                                             <style>
@@ -157,7 +158,7 @@
                                     <img class="w-25" src="@ViewBag.AdminWebUrl@Model.Brand.PictureUrl"/>
                                 </div>
                                 <div class="mt-5">
-                                <a asp-controller="cart" asp-action="buy" asp-route-id="@Model.Id" class="btn btn-primary btn-block btn-lg">Add to Cart</a>
+                                <a href="#" onclick="addToCart(@Model.Id)" id="addtocartbtn" class="btn btn-primary color-btn-click btn-block btn-lg">Add to Cart</a>
                                 </div>
                             </div>
                         </div>
@@ -262,3 +263,14 @@
             </div>
         </div>
     </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+function addToCart(productId) {
+        var selectedColor = $('input[name=group]:checked').val().replace('#', '');
+        var quantity = $('input[name=quantity]').val();
+        var link = '/cart/buy/' + productId + '/' + selectedColor + '/' + quantity;
+        $('#addtocartbtn').attr('href', link);
+    }
+
+</script>
+

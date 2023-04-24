@@ -27,5 +27,15 @@ namespace ShopAdmin.Controllers
                 .FirstOrDefaultAsync(o => o.Id == id);
             return View(order);
         }
+        public async Task<IActionResult> CancelOrder(int? id)
+        {
+            var order = await _dbContext.Orders.FirstOrDefaultAsync(u => u.Id == id);
+            if (order != null)
+            {
+                order.OrderStatus = -1;
+            }
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

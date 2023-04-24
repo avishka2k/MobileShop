@@ -118,7 +118,7 @@
                         </div>
                     </div>
                     <div class="card-body border-top m-auto">
-                        <a href="#" class="btn btn-outline-light">Order Cancel</a>
+                        <a asp-controller="Order" asp-action="CancelOrder" asp-route-id="@Model.Id" class="btn btn-outline-light">Order Cancel</a>
                         <a href="#" class="btn btn-primary">Delivery Order</a>
                     </div>
                 </div>
