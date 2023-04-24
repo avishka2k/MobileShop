@@ -51,6 +51,10 @@ namespace ShopAdmin.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
@@ -175,6 +179,9 @@ namespace ShopAdmin.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("Payment")
                         .IsRequired()

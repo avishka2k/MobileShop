@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ShopAdmin.Migrations
+namespace ShopClient.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration
@@ -57,7 +57,8 @@ namespace ShopAdmin.Migrations
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     State = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ZipCode = table.Column<int>(type: "int", nullable: false),
-                    Payment = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Payment = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderStatus = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -107,6 +108,7 @@ namespace ShopAdmin.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrderId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
