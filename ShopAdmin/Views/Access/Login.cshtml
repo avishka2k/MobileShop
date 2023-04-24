@@ -1,0 +1,48 @@
+﻿@model Login;
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/assets/vendor/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/assets/vendor/fonts/circular-std/style.css" />
+<link rel="stylesheet" href="~/assets/libs/css/style.css" />
+<link rel="stylesheet" href="~/assets/vendor/fonts/fontawesome/css/fontawesome-all.css" />
+
+<div class="splash-container">
+    <div class="card ">
+        <div class="card-header text-center"><a href="../index.html"><img class="logo-img" src="../assets/images/logo.png" alt="logo"></a><span class="splash-description">Please enter your user information.</span></div>
+        <div class="card-body">
+            <form asp-controller="Access" asp-action="Login" method="post">
+                <div class="form-group">
+                    <input class="form-control form-control-lg" id="username" asp-for="Email" type="text" placeholder="Username" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input class="form-control form-control-lg" asp-for="PassWord" id="password" type="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label class="custom-control custom-checkbox">
+                        <input class="custom-control-input" asp-for="KeepLoggedIn" type="checkbox"><span class="custom-control-label">Remember Me</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                @if (ViewData["ValidateMessage"] != null)
+                {
+                <br />
+                <br />
+                <label>@ViewData["ValidateMessage"]</label>
+                }
+            </form>
+        </div>
+        <div class="card-footer bg-white p-0  ">
+            <div class="card-footer-item card-footer-item-bordered">
+                <a href="#" class="footer-link">Create An Account</a>
+            </div>
+            <div class="card-footer-item card-footer-item-bordered">
+                <a href="#" class="footer-link">Forgot Password</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+<script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
