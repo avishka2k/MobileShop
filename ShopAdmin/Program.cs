@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using ShopAdmin.Data;
 
@@ -11,6 +12,12 @@ namespace ShopAdmin
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddAuthentication(
+                CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(option => {
+                option.LoginPath = "/Access/Login";
+                option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                });
             builder.Services.AddDbContext<ProductDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ProductDbContext")));
 
             var app = builder.Build();

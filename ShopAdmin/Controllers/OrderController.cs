@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopAdmin.Data;
 
 namespace ShopAdmin.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly ProductDbContext _dbContext;
