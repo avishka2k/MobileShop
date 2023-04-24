@@ -90,7 +90,18 @@
                                                 }
                                             </td>
                                             <td>
-                                                <span class="label label-success">Success Label</span>
+                                                @if (item.OrderStatus == 0)
+                                                {
+                                                    <span class="label label-warning">Pending</span>
+                                                }
+                                                else if (item.OrderStatus == 1)
+                                                {
+                                                    <span class="label label-success">Delivered</span>
+                                                }
+                                                else if (item.OrderStatus == -1)
+                                                {
+                                                    <span class="label label-danger">Canceled</span>
+                                                }
                                             </td>
                                             <td>                                               
                                                 @{
