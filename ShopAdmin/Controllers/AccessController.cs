@@ -48,8 +48,6 @@ namespace ShopAdmin.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-
-
             ViewData["ValidateMessage"] = "user not found";
             return View();
         }
