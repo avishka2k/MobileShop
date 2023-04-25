@@ -1,8 +1,93 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    .category-card {
+        padding: 0;
+        overflow: hidden;
+        border: none;
+        background-color: white;
+        border-radius: 3px;
+        cursor: pointer;
+        box-shadow: none;
+    }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        .category-card img {
+            padding-top: 0;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            margin: auto;
+            background-size: cover;
+        }
+
+        .category-card .card-title {
+            text-align: center;
+        }
+
+    .card-title {
+        padding-top: 0.5rem;
+    }
+
+    .category-card:hover {
+        transform: scale(1.02);
+        transition: 0.3s;
+    }
+
+ 
+
+    .border-bttom-category {
+        border-bottom: 2px solid;
+        width: fit-content;
+        padding-bottom: 3px;
+    }
+</style>
+<div class="bg-mygray">
+<div class="dashboard-ecommerce">
+    <div class="container">
+        <div class="">
+            <p class="border-bttom-category border-primary">Category</p>
+        </div>
+    <div class="row max-width-collection">
+      <!-- Single Product -->
+      <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="card category-card">
+          <p class="card-title font-16">fdff</p>
+          <img class="card-body" src="https://i.ibb.co/L8Nrb7p/1.jpg" alt="" />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="card category-card">
+          <p class="card-title font-16">fdff</p>
+          <img class="card-body" src="https://i.ibb.co/L8Nrb7p/1.jpg" alt="" />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="card category-card">
+          <p class="card-title font-16">fdff</p>
+          <img class="card-body" src="https://i.ibb.co/L8Nrb7p/1.jpg" alt="" />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="card category-card">
+          <p class="card-title font-16">fdff</p>
+          <img class="card-body" src="https://i.ibb.co/L8Nrb7p/1.jpg" alt="" />
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 col-xl-3">
+        <div class="card category-card">
+          <p class="card-title font-16">fdff</p>
+          <img class="card-body" src="https://i.ibb.co/L8Nrb7p/1.jpg" alt="" />
+        </div>
+      </div>
+    </div>
+    </div>
+</div>
+</div>
+
+<div class="my-5">
+    <div class="dashboard-ecommerce">
+        <div class="container">
+            <img class="w-100" src="~/assets/images/2_col_banner_v1.png" />
+          </div>
+    </div>
 </div>

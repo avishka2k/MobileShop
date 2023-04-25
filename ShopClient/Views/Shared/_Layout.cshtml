@@ -43,35 +43,79 @@
             text-decoration: underline;
             color:#319DFF
         }
+        .rounded-circle-full {
+            border-radius: 5rem;
+        }
+        .rounded-circle-left {
+            border-top-right-radius: 5rem;
+            border-bottom-right-radius: 5rem;
+        }
+        .search-select {
+            max-width: 7rem;
+        }
+        .search-form-w {
+            width: 40rem;
+        }
+
+        .navbar-brand-custom-1{
+            padding-left: 1rem;
+        }
+        .navbar-brand-custom-gap{
+            font-size:18px;
+        }
+        .navbar{
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .navbar-brand{
+            padding: 0;
+        }
+
+        .container-fluid{
+            padding: 0;
+        }
+        .bg-mygray{
+            background-color: #EEF0F4;
+        }
     </style>
 </head>
 <body class="bg-white">
+<div class="dashboard-ecommerce">
+   <div class="container">
     <header class="">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ShopClient</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    @using (Html.BeginForm("Search", "Products", FormMethod.Get))
-                    {
-                        <input type="text" name="searchTerm" />
-                        <button type="submit">Search</button>
-                    }
-                </div>
-            </div>
-        </nav>
+       <nav class="navbar navbar-light">
+      <div class="container-fluid">
+        <a class="navbar-brand">Navbar</a>
+        @using (Html.BeginForm("Search", "Products", FormMethod.Get))
+         {   
+        <div class="d-flex input-group search-form-w">         
+          <input
+            type="text"
+            class="form-control rounded-circle-full"
+            placeholder="Search for products"
+            aria-label="Search"
+            name="searchTerm"
+            aria-describedby="search-addon"
+          />
+          <select class="custom-select search-select" name="" id="">
+            <option value="">All Item</option>
+          </select>
+          <button type="submit" class="input-group-text px-3 bg-primary border-0 rounded-circle-left">
+            <i class="fas fa-search text-white"></i>
+          </button>       
+        </div>
+        }
+        <div class="navbar-brand-custom-gap">
+          <a class="navbar-brand-custom"><i class="fa fa-bookmark" aria-hidden="true"></i></a>
+          <a class="navbar-brand-custom navbar-brand-custom-1"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </nav>
     </header>
+   </div>
+</div>
     <div class="">
         <main role="main" class="pb-3">
             @RenderBody()
