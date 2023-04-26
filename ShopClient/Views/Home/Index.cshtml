@@ -47,11 +47,136 @@
     .category-card-main{
 
     }
+
+
+
+
+
+    
+ .carousel {
+	margin: 50px 0;
+    background: #ffffff;
+} 
+
+
+.carousel .carousel-item {
+    text-align: center;
+	
+    height: 470px;
+}
+.carousel .carousel-item img {
+	max-width: 100%;
+    margin: 0 auto; /* Align slide image horizontally center in Bootstrap v3 */
+}
+.carousel-caption h3, .carousel-caption p {
+	color: #0a0a0a;
+	display: flex;
+	font-family: 'Oswald', sans-serif;
+	text-shadow: none;
+	margin-bottom: 250px;
+
+}
+.carousel{
+	
+	margin-left: auto;
+}
+.button {
+    border: none;
+	font-size: 15px;
+    outline: 0;
+    display: inline-block;
+    padding: 10px 10px;
+    color: rgb(255, 255, 255);
+    background-color: #2385da;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 15px;
+  }
+  
+  .button:hover {
+    background-color: #05054d;
+    color: white;
+  }
+  .text {
+	color: #090909;
+	font-size: 50px;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	padding: 8px 12px;
+	position: absolute;
+	bottom: 285%;
+	right: 5%;
+	width: 100%;
+	text-align: left;
+  }
+
+
+
+
 </style>
+
+@*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:300,400|Roboto:300,400,700">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+<link rel="stylesheet" href="C:\Users\User\Desktop\heroo\heroo.css">
+<script src="C:\Users\User\Desktop\hero\heroo.js"></script>*@
 <div class="">
     <div class="dashboard-ecommerce">
         <div class="container">
-           <!-- Home page Hero--> 
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+                            <!-- Wrapper for carousel items -->
+                            <div class="carousel-inner">
+
+                                <div class="carousel-item active">
+                                    <img src="C:\Users\User\Desktop\heroo\Pictures\banner_01.png">
+                                    <div class="carousel-caption">
+                                        <div class="text">
+                                            NEW <b>NAMPHONE</b> <br>
+                                            RELEASE THIS FALL
+                                            <br>
+                                            <button class="button"><b>Find Out More</b> </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="carousel-item">
+                                    <img src="C:\Users\User\Desktop\heroo\Pictures\banner_02.png">
+                                    <div class="carousel-caption">
+                                        <div class="text">
+                                            <b>PLAYBOX</b> CONSOLE <br>
+                                            X245-HD
+                                            <br>
+                                            <button class="button"><b>Find Out More</b> </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="carousel-item">
+                                    <img src="C:\Users\User\Desktop\heroo\Pictures\banner_03.png">
+                                    <div class="carousel-caption">
+                                        <div class="text">
+                                            KEEP YOUR SHAPE WITH<br>
+                                            ALL NEW <b>GADGETS</b>
+                                            <br>
+                                            <button class="button"><b>Find Out More</b> </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             
         </div>
     </div>
@@ -103,3 +228,22 @@
           </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        // Highlight bottom nav links
+        var clickEvent = false;
+        $("#myCarousel").on("click", ".nav a", function () {
+            clickEvent = true;
+            $(this).parent().siblings().removeClass("active");
+            $(this).parent().addClass("active");
+        }).on("slid.bs.carousel", function (e) {
+            if (!clickEvent) {
+                itemIndex = $(e.relatedTarget).index();
+                targetNavItem = $(".nav li[data-slide-to='" + itemIndex + "']");
+                $(".nav li").not(targetNavItem).removeClass("active");
+                targetNavItem.addClass("active");
+            }
+            clickEvent = false;
+        });
+    });
+</script>
