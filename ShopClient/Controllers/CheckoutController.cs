@@ -20,6 +20,8 @@ namespace ShopClient.Controllers
         {
             string adminWebUrl = Environment.GetEnvironmentVariable("ASPNETCORE_WEB_URL");
             ViewBag.AdminWebUrl = adminWebUrl;
+            var product = _context.Products.Take(4).OrderByDescending(c => c.Id).ToList();
+            ViewBag.ProductForFooter = product;
 
             List<CartItem> cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
 
@@ -53,6 +55,8 @@ namespace ShopClient.Controllers
         {
             List<CartItem> cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
             ViewBag.cart = cart;
+            var product = _context.Products.Take(4).OrderByDescending(c => c.Id).ToList();
+            ViewBag.ProductForFooter = product;
             double subtotal;
             if (cart != null)
             {

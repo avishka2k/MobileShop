@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShopClient.Data;
 using ShopClient.Helpers;
 using ShopClient.Models;
@@ -9,15 +10,19 @@ namespace ShopClient.Controllers
     public class CartController : Controller
     {
         private readonly ProductRepository _productRepository;
+        private readonly ProductDbContext _context;
 
-        public CartController()
+        public CartController(ProductDbContext context)
         {
             _productRepository = new ProductRepository();
+            _context = context;
         }
         public IActionResult Index()
         {
             string adminWebUrl = Environment.GetEnvironmentVariable("ASPNETCORE_WEB_URL");
             ViewBag.AdminWebUrl = adminWebUrl;
+            var product = _context.Products.Take(4).OrderByDescending(c => c.Id).ToList();
+            ViewBag.ProductForFooter = product;
 
             var cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
             ViewBag.cart = cart;

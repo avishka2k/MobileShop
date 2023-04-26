@@ -7,41 +7,31 @@
     .list-style-position{
         list-style-position: inside;
     }
-
-    
 </style>
+
+
 
 <div class="dashboard-ecommerce">
         <div class="container-fluid dashboard-content">
-            <!-- ============================================================== -->
-            <!-- pageheader  -->
-            <!-- ============================================================== -->
             <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <div class="page-breadcrumb">
+                        <div class="page-breadcrumb pl-3">
                             <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
+                                <ol class="breadcrumb border-0">
                                     <li class="breadcrumb-item">
-                                        <a href="#" class="breadcrumb-link">Products</a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        <a href="#" class="breadcrumb-link">@Html.DisplayFor(model => model.Id)</a>
+                                        <a asp-controller="Products" asp-action="Index" class="breadcrumb-link">Products</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
                                         Details
                                     </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="#" class="breadcrumb-link">@Html.DisplayFor(model => model.Id)</a>
+                                    </li>                               
                                 </ol>
                             </nav>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- end pageheader  -->
-            <!-- ============================================================== -->
-            <div class="row">
-                <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0 m-b-30">
                             <div class="container">
