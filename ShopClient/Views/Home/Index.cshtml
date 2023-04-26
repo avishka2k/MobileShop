@@ -112,6 +112,189 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	body {
+		background: #e2eaef;
+		font-family: "Open Sans", sans-serif;
+	}
+
+	h2 {
+		color: #000;
+		font-size: 26px;
+		text-align: left;
+		font-weight: bold;
+		text-transform: uppercase;
+		position: relative;
+		margin: 30px 0 60px;
+	}
+
+		h2::after {
+			content: "";
+			width: 270px;
+			position: absolute;
+			margin: 0 auto;
+			height: 4px;
+			border-radius: 1px;
+			background: #060606;
+			left: 0;
+			right: 10;
+			bottom: -20px;
+		}
+
+	.carousel {
+		margin: 50px auto;
+		padding: 0 70px;
+	}
+
+		.carousel .item {
+			color: #747d89;
+			min-height: 325px;
+			text-align: center;
+			overflow: hidden;
+		}
+
+		.carousel .thumb-wrapper {
+			padding: 25px 15px;
+			background: #fff;
+			border-radius: 6px;
+			text-align: center;
+			position: relative;
+			box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+		}
+
+		.carousel .item .img-box {
+			height: 120px;
+			margin-bottom: 20px;
+			width: 100%;
+			position: relative;
+		}
+
+		.carousel .item img {
+			max-width: 100%;
+			max-height: 100%;
+			display: inline-block;
+			position: absolute;
+			bottom: 0;
+			margin: 0 auto;
+			left: 0;
+			right: 0;
+		}
+
+		.carousel .item h4 {
+			font-size: 18px;
+		}
+
+		.carousel .item h4, .carousel .item p, .carousel .item ul {
+			margin-bottom: 5px;
+		}
+
+		.carousel .thumb-content .btn {
+			color: #060606;
+			font-size: 11px;
+			text-transform: uppercase;
+			font-weight: bold;
+			background: none;
+			border: 1px solid #010101;
+			padding: 6px 14px;
+			margin-top: 5px;
+			line-height: 16px;
+			border-radius: 20px;
+		}
+
+			.carousel .thumb-content .btn:hover, .carousel .thumb-content .btn:focus {
+				color: #fff;
+				background: #000000;
+				box-shadow: none;
+			}
+
+			.carousel .thumb-content .btn i {
+				font-size: 14px;
+				font-weight: bold;
+				margin-left: 5px;
+			}
+
+		.carousel .item-price {
+			font-size: 13px;
+			padding: 2px 0;
+		}
+
+			.carousel .item-price strike {
+				opacity: 0.7;
+				margin-right: 5px;
+			}
+
+	.carousel-control-prev, .carousel-control-next {
+		height: 44px;
+		width: 40px;
+		background: #020202;
+		margin: auto 0;
+		border-radius: 4px;
+		opacity: 0.8;
+	}
+
+		.carousel-control-prev:hover, .carousel-control-next:hover {
+			background: #6b6b6891;
+			opacity: 1;
+		}
+
+		.carousel-control-prev i, .carousel-control-next i {
+			font-size: 36px;
+			position: absolute;
+			top: 50%;
+			display: inline-block;
+			margin: -19px 0 0 0;
+			z-index: 5;
+			left: 0;
+			right: 0;
+			color: #fff;
+			text-shadow: none;
+			font-weight: bold;
+		}
+
+		.carousel-control-prev i {
+			margin-left: -2px;
+		}
+
+		.carousel-control-next i {
+			margin-right: -4px;
+		}
+
+	.carousel-indicators {
+		bottom: -50px;
+	}
+
+		.carousel-indicators li, .carousel-indicators li.active {
+			width: 10px;
+			height: 10px;
+			margin: 4px;
+			border-radius: 50%;
+			border: none;
+		}
+
+		.carousel-indicators li {
+			background: rgba(0, 0, 0, 0.2);
+		}
+
+			.carousel-indicators li.active {
+				background: rgba(0, 0, 0, 0.6);
+			}
+
+
 </style>
 
 @*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:300,400|Roboto:300,400,700">
@@ -124,6 +307,20 @@
 
 <link rel="stylesheet" href="C:\Users\User\Desktop\heroo\heroo.css">
 <script src="C:\Users\User\Desktop\hero\heroo.js"></script>*@
+
+<!--
+feature product
+-->
+@*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Open+Sans">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<!-- card css/js -->
+<link rel="stylesheet" href="C:\Users\User\Desktop\Card\card.css">
+<script src="C:\Users\User\Desktop\Card\card.js"></script>*@
 <div class="">
     <div class="dashboard-ecommerce">
         <div class="container">
@@ -192,7 +389,241 @@
     <div class="dashboard-ecommerce">
         <div class="container">
             <!-- Featured Products-->
+			<div class="container-xl">
+				<div class="row">
+					<div class="col-md-12">
+						<h2>Featured Products</h2>
+						<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
 
+							<!-- Carousel indicators -->
+							<ol class="carousel-indicators">
+								<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+								<li data-target="#myCarousel" data-slide-to="1"></li>
+								<li data-target="#myCarousel" data-slide-to="2"></li>
+							</ol>
+
+							<!-- Wrapper for carousel items -->
+							<div class="carousel-inner">
+								<div class="item carousel-item active">
+									<div class="row">
+
+										<!-- Start first card four -->
+
+										<div class="col-sm-3">
+											<div class="thumb-wrapper">
+												<h8>Smartphones</h8>
+												<div class="img-box">
+													<img src="C:\Users\User\Desktop\Card\prodcut_photos@2x.png" class="img-fluid" alt="">
+												</div>
+												<div class="thumb-content">
+													<h6>Apple iPhone 14 Pro, LTPO Super Retina XDR </h6>
+													<p class="item-price"><b>$1,200.00</b></p>
+													<a href="#" class="btn btn-primary">Add to Cart</a>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="col-sm-3">
+											<div class="thumb-wrapper">
+												<h8>Smartphones</h8>
+												<div class="img-box">
+													<img src="C:\Users\User\Desktop\Card\prodcut_photos2.png" class="img-fluid" alt="Headphone">
+												</div>
+												<div class="thumb-content">
+													<h6>Mobile Phone Nokia 8210, Dual SIM, 4G</h6>
+													<p class="item-price"><b>$60.0</b></p>
+													<a href="#" class="btn btn-primary">Add to Cart</a>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="col-sm-3">
+											<div class="thumb-wrapper">
+												<h8>TV & Audio</h8>
+												<div class="img-box">
+													<img src="C:\Users\User\Desktop\Card\prodcut_photos3.png" class="img-fluid" alt="Macbook">
+												</div>
+												<div class="thumb-content">
+													<h6>SONY SRSXV900, Wireless Party Speaker</h6>
+													<p class="item-price"><b>$1,200.00</b></p>
+													<a href="#" class="btn btn-primary">Add to Cart</a>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="col-sm-3">
+											<div class="thumb-wrapper">
+												<h8>TV & Audio</h8>
+												<div class="img-box">
+													<img src="C:\Users\User\Desktop\Card\prodcut_photos4.png" class="img-fluid" alt="Nikon">
+												</div>
+												<div class="thumb-content">
+													<h6>Headphones, Noise cancelling, Bluetooth 5.0</h6>
+													<p class="item-price"><b>$250.00</b></p>
+													<a href="#" class="btn btn-primary">Add to Cart</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- End first card four -->
+
+
+								<div class="item carousel-item">
+									<div class="row">
+
+
+										<!-- Start second card four -->
+
+										<div class="col-sm-3">
+											<div class="thumb-wrapper">
+												<h8>Photo & Video</h8>
+												<div class="img-box">
+													<img src="C:\Users\User\Desktop\Card\prodcut_photos6.png" class="img-fluid" alt="Play Station">
+												</div>
+												<div class="thumb-content">
+													<h6>D-SLR Canon EOS R10,4k,DIGIC X,RF-S</h6>
+													<p class="item-price"><span>$1,100.00</span></p>
+													<a href="#" class="btn btn-primary">Add to Cart</a>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="col-sm-3">
+											<div class="thumb-wrapper">
+												<h8>Laptops & PCs</h8>
+												<div class="img-box">
+													<img src="C:\Users\User\Desktop\Card\prodcut_photos7.png" class="img-fluid" alt="Macbook">
+												</div>
+												<div class="thumb-content">
+													<h6>PC DELL Vostro 3910 MT, (Intel® Core™ i5-12400)</h6>
+													<p class="item-price"><span>$600.00</span></p>
+													<a href="#" class="btn btn-primary">Add to Cart</a>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="col-sm-3">
+											<div class="thumb-wrapper">
+												<h8>Laptops & PCs</h8>
+												<div class="img-box">
+													<img src="C:\Users\User\Desktop\Card\prodcut_photos8.png" class="img-fluid" alt="Speaker">
+												</div>
+												<div class="thumb-content">
+													<h6>Asus VivoBook S 14 Flip TP3402ZA Intel® Core™</h6>
+													<p class="item-price"><span>$1,000.00</span></p>
+													<a href="#" class="btn btn-primary">Add to Cart</a>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="col-sm-3">
+											<div class="thumb-wrapper">
+												<h8>TV & Audio</h8>
+												<div class="img-box">
+													<img src="C:\Users\User\Desktop\Card\prodcut_photos9.png" class="img-fluid" alt="Galaxy">
+												</div>
+												<div class="thumb-content">
+													<h6>Sony SRS-XP700, MEGA BASS, Bluetooth,Wireless</h6>
+													<p class="item-price"><span>$600.00</span></p>
+													<a href="#" class="btn btn-primary">Add to Cart</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- End first card four -->
+
+
+								<div class="item carousel-item">
+									<div class="row">
+
+										<!-- Start third card four -->
+
+										<div class="col-sm-3">
+											<div class="thumb-wrapper">
+												<h8>Laptops & PCs</h8>
+												<div class="img-box">
+													<img src="C:\Users\User\Desktop\Card\prodcut_photos12.png" class="img-fluid" alt="iPhone">
+												</div>
+												<div class="thumb-content">
+													<h6>Laptop HP,Procesor Intel® Core™i5</h6>
+													<p class="item-price"><span>$349.00</span></p>
+													<a href="#" class="btn btn-primary">Add to Cart</a>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-sm-3">
+											<div class="thumb-wrapper">
+												<h8>Photo & Video</h8>
+												<div class="img-box">
+													<img src="C:\Users\User\Desktop\Card\prodcut_photos13.png" class="img-fluid" alt="Canon">
+												</div>
+												<div class="thumb-content">
+													<h6>Canon EF-S 18-135mm f/3.5-5.6 IS USM Nano</h6>
+													<p class="item-price"><span>$250.00</span></p>
+													<a href="#" class="btn btn-primary">Add to Cart</a>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-sm-3">
+											<div class="thumb-wrapper">
+												<h8>TV & Audio</h8>
+												<div class="img-box">
+													<img src="C:\Users\User\Desktop\Card\prodcut_photos14.png" class="img-fluid" alt="Pixel">
+												</div>
+												<div class="thumb-content">
+													<h6>IPS LED Lenovo ThinkVision 27",Full HD</h6>
+													<p class="item-price"><span>$418.00</span></p>
+													<a href="#" class="btn btn-primary">Add to Cart</a>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-sm-3">
+											<div class="thumb-wrapper">
+												<h8>Gadgets</h8>
+												<div class="img-box">
+													<img src="C:\Users\User\Desktop\Card\09 1.png" class="img-fluid" alt="Watch">
+												</div>
+												<div class="thumb-content">
+													<h6>Smartwatch Huawei GT3,Display AMOLED</h6>
+													<p class="item-price"><span>$330.00</span></p>
+													<a href="#" class="btn btn-primary">Add to Cart</a>
+												</div>
+											</div>
+										</div>
+
+										<!-- End third card four -->
+
+									</div>
+								</div>
+							</div>
+
+
+							<!-- Carousel controls -->
+							<a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+								<i class="fa fa-angle-left"></i>
+							</a>
+							<a class="carousel-control-next" href="#myCarousel" data-slide="next">
+								<i class="fa fa-angle-right"></i>
+							</a>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
         </div>
     </div>
 </div>
@@ -246,4 +677,12 @@
             clickEvent = false;
         });
     });
+</script>
+<script>
+	$(document).ready(function(){
+	$(".wish-icon i").click(function(){
+		$(this).toggleClass("fa-heart fa-heart-o");
+	});
+});	
+
 </script>
