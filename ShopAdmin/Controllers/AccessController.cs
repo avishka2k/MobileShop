@@ -14,8 +14,6 @@ namespace ShopAdmin.Controllers
 
             if (claimUser.Identity.IsAuthenticated)
                 return RedirectToAction("Index", "Home");
-
-
             return View();
         }
 
@@ -30,7 +28,6 @@ namespace ShopAdmin.Controllers
                 List<Claim> claims = new List<Claim>() {
                     new Claim(ClaimTypes.NameIdentifier, modelLogin.Email),
                     new Claim("OtherProperties","Example Role")
-
                 };
 
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,

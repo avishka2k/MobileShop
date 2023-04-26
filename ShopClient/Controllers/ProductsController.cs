@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using ShopClient.Data;
+using ShopClient.Helpers;
 using ShopClient.Models;
 
 namespace ShopClient.Controllers
@@ -26,6 +27,10 @@ namespace ShopClient.Controllers
         {
             string adminWebUrl = Environment.GetEnvironmentVariable("ASPNETCORE_WEB_URL");
             ViewBag.AdminWebUrl = adminWebUrl;
+            List<CartItem> cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
+            ViewBag.cart = cart;
+            var productfooter = _context.Products.Take(4).OrderByDescending(c => c.Id).ToList();
+            ViewBag.ProductForFooter = productfooter;
 
             var query = _context.Products
                 .Include(p => p.Brand)
@@ -63,6 +68,10 @@ namespace ShopClient.Controllers
             #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             string adminWebUrl = Environment.GetEnvironmentVariable("ASPNETCORE_WEB_URL");
             ViewBag.AdminWebUrl = adminWebUrl;
+            List<CartItem> cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
+            ViewBag.cart = cart;
+            var productfooter = _context.Products.Take(4).OrderByDescending(c => c.Id).ToList();
+            ViewBag.ProductForFooter = productfooter;
 
             if (id == null || _context.Products == null)
             {
