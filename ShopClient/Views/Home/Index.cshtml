@@ -183,16 +183,11 @@
 	.carousel-control-prev, .carousel-control-next {
 		height: 44px;
 		width: 40px;
-		background: #020202;
 		margin: auto 0;
 		border-radius: 4px;
 		opacity: 0.8;
 	}
 
-		.carousel-control-prev:hover, .carousel-control-next:hover {
-			background: #6b6b6891;
-			opacity: 1;
-		}
 
 		.carousel-control-prev i, .carousel-control-next i {
 			font-size: 36px;
@@ -203,7 +198,7 @@
 			z-index: 5;
 			left: 0;
 			right: 0;
-			color: #fff;
+			color: #000;
 			text-shadow: none;
 			font-weight: bold;
 		}
@@ -240,6 +235,10 @@
 			margin: 0;
 		}
 
+	.category-card-main{
+		padding-bottom: 1rem;
+	}
+
 </style>
 
 
@@ -266,7 +265,7 @@ feature product
                                             NEW <b>NAMPHONE</b> <br>
                                             RELEASE THIS FALL
                                             <br>
-                                            <button class="button"><b>Find Out More</b> </button>
+                                            <a asp-controller="Products" asp-action="Index" class="button text-white"><b>Find Out More</b> </a>
                                         </div>
                                     </div>
                                 </div>
@@ -278,7 +277,7 @@ feature product
                                             <b>PLAYBOX</b> CONSOLE <br>
                                             X245-HD
                                             <br>
-                                            <button class="button"><b>Find Out More</b> </button>
+                                            <a asp-controller="Products" asp-action="Index" class="button text-white"><b>Find Out More</b> </a>
                                         </div>
                                     </div>
                                 </div>
@@ -290,7 +289,7 @@ feature product
                                             KEEP YOUR SHAPE WITH<br>
                                             ALL NEW <b>GADGETS</b>
                                             <br>
-                                            <button class="button"><b>Find Out More</b> </button>
+									<a asp-controller="Products" asp-action="Index" class="button text-white"><b>Find Out More</b> </a>
                                         </div>
                                     </div>
                                 </div>

@@ -97,6 +97,12 @@
         .bg-mygray{
             background-color: #EEF0F4;
         }
+
+        .footer-product{
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body class="bg-white">
@@ -106,8 +112,8 @@
        <nav class="navbar navbar-light">
       <div class="container-fluid">
           <div class=" align-content-center">
-             <a class="navbar-brand">Navbar</a>
-             <a asp-controller="Products" asp-action="Index" class="font-20">Shop</a>
+             <a class="navbar-brand">MobiShop</a>
+             <a asp-controller="Products" asp-action="Index" class="font-18">Shop</a>
           </div>
         @using (Html.BeginForm("Search", "Products", FormMethod.Get))
          {   
@@ -222,7 +228,7 @@
                         {
                             foreach (var item in ViewBag.ProductForFooter)
                             {
-                                <p>
+                                <p class="footer-product">
                                     <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" class="text-reset">@item.Title</a>
                                 </p>
                             }
