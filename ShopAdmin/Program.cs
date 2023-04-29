@@ -16,7 +16,7 @@ namespace ShopAdmin
                 CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(option => {
                 option.LoginPath = "/Access/Login";
-                option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                option.ExpireTimeSpan = TimeSpan.FromDays(30);
                 });
             builder.Services.AddDbContext<ProductDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ProductDbContext")));
 

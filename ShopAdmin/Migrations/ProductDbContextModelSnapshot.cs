@@ -286,6 +286,26 @@ namespace ShopAdmin.Migrations
                     b.ToTable("Specifications");
                 });
 
+            modelBuilder.Entity("ShopAdmin.Models.Subscribers", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subscribers");
+                });
+
             modelBuilder.Entity("ShopAdmin.Models.CartItem", b =>
                 {
                     b.HasOne("ShopAdmin.Models.Order", "Order")

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<ShopAdmin.Models.Subscribers>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <!-- ============================================================== -->
+        <!-- pageheader -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Subsctibers</h2>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a asp-action="Index" class="breadcrumb-link">Subsctibers</a>
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader -->
+        <!-- ============================================================== -->
+
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="row w-100">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="single-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered text-center">
+                                            <thead class="text-uppercase">
+                                                <tr>
+                                                    <th>
+                                                        @Html.DisplayNameFor(model => model.Id)
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayNameFor(model => model.Email)
+                                                    </th>
+                                                    <th>
+                                                        @Html.DisplayNameFor(model => model.DateTime)
+                                                    </th>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Id)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Email)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.DateTime)
+                                                        </td>
+                                                        <td>
+                                                            <a asp-controller="Subscribers" asp-action="Delete" asp-route-id="@item.Id"><i class="far fa-trash-alt text-danger"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                        @if (Model.Count() == 0)
+                                        {
+                                            <p class=" text-center mt-3">No data available in table</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end fixed header  -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+</div>

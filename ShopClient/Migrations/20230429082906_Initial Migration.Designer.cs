@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ShopAdmin.Data;
+using ShopClient.Data;
 
 #nullable disable
 
-namespace ShopAdmin.Migrations
+namespace ShopClient.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20230423043209_Inital Migration")]
-    partial class InitalMigration
+    [Migration("20230429082906_Initial Migration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace ShopAdmin.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ShopAdmin.Models.Brand", b =>
+            modelBuilder.Entity("ShopClient.Models.Brand", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,7 +46,7 @@ namespace ShopAdmin.Migrations
                     b.ToTable("Brands");
                 });
 
-            modelBuilder.Entity("ShopAdmin.Models.CartItem", b =>
+            modelBuilder.Entity("ShopClient.Models.CartItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,7 +76,7 @@ namespace ShopAdmin.Migrations
                     b.ToTable("CartItems");
                 });
 
-            modelBuilder.Entity("ShopAdmin.Models.Category", b =>
+            modelBuilder.Entity("ShopClient.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,7 +97,7 @@ namespace ShopAdmin.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("ShopAdmin.Models.Color", b =>
+            modelBuilder.Entity("ShopClient.Models.Color", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -119,7 +119,7 @@ namespace ShopAdmin.Migrations
                     b.ToTable("Colors");
                 });
 
-            modelBuilder.Entity("ShopAdmin.Models.Image", b =>
+            modelBuilder.Entity("ShopClient.Models.Image", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -145,7 +145,7 @@ namespace ShopAdmin.Migrations
                     b.ToTable("Images");
                 });
 
-            modelBuilder.Entity("ShopAdmin.Models.Order", b =>
+            modelBuilder.Entity("ShopClient.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -209,7 +209,7 @@ namespace ShopAdmin.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("ShopAdmin.Models.Product", b =>
+            modelBuilder.Entity("ShopClient.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -267,7 +267,7 @@ namespace ShopAdmin.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("ShopAdmin.Models.Specification", b =>
+            modelBuilder.Entity("ShopClient.Models.Specification", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -289,15 +289,35 @@ namespace ShopAdmin.Migrations
                     b.ToTable("Specifications");
                 });
 
-            modelBuilder.Entity("ShopAdmin.Models.CartItem", b =>
+            modelBuilder.Entity("ShopClient.Models.Subscribers", b =>
                 {
-                    b.HasOne("ShopAdmin.Models.Order", "Order")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subscribers");
+                });
+
+            modelBuilder.Entity("ShopClient.Models.CartItem", b =>
+                {
+                    b.HasOne("ShopClient.Models.Order", "Order")
                         .WithMany("Carts")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ShopAdmin.Models.Product", "Product")
+                    b.HasOne("ShopClient.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -308,9 +328,9 @@ namespace ShopAdmin.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ShopAdmin.Models.Color", b =>
+            modelBuilder.Entity("ShopClient.Models.Color", b =>
                 {
-                    b.HasOne("ShopAdmin.Models.Product", "Product")
+                    b.HasOne("ShopClient.Models.Product", "Product")
                         .WithMany("Colors")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -319,9 +339,9 @@ namespace ShopAdmin.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ShopAdmin.Models.Image", b =>
+            modelBuilder.Entity("ShopClient.Models.Image", b =>
                 {
-                    b.HasOne("ShopAdmin.Models.Product", "Product")
+                    b.HasOne("ShopClient.Models.Product", "Product")
                         .WithMany("Images")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -330,15 +350,15 @@ namespace ShopAdmin.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ShopAdmin.Models.Product", b =>
+            modelBuilder.Entity("ShopClient.Models.Product", b =>
                 {
-                    b.HasOne("ShopAdmin.Models.Brand", "Brand")
+                    b.HasOne("ShopClient.Models.Brand", "Brand")
                         .WithMany("Products")
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("ShopAdmin.Models.Category", "Category")
+                    b.HasOne("ShopClient.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -349,9 +369,9 @@ namespace ShopAdmin.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("ShopAdmin.Models.Specification", b =>
+            modelBuilder.Entity("ShopClient.Models.Specification", b =>
                 {
-                    b.HasOne("ShopAdmin.Models.Product", "Product")
+                    b.HasOne("ShopClient.Models.Product", "Product")
                         .WithMany("Specifications")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -360,22 +380,22 @@ namespace ShopAdmin.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ShopAdmin.Models.Brand", b =>
+            modelBuilder.Entity("ShopClient.Models.Brand", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("ShopAdmin.Models.Category", b =>
+            modelBuilder.Entity("ShopClient.Models.Category", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("ShopAdmin.Models.Order", b =>
+            modelBuilder.Entity("ShopClient.Models.Order", b =>
                 {
                     b.Navigation("Carts");
                 });
 
-            modelBuilder.Entity("ShopAdmin.Models.Product", b =>
+            modelBuilder.Entity("ShopClient.Models.Product", b =>
                 {
                     b.Navigation("Colors");
 

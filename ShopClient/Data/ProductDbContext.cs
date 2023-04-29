@@ -16,8 +16,9 @@ namespace ShopClient.Data
         public DbSet<Color> Colors { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
+		public DbSet<Subscribers> Subscribers { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Image>()
                .HasOne(i => i.Product)
