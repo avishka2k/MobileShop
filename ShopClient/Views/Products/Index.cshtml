@@ -3,13 +3,22 @@
 @{
     ViewData["Title"] = "Index";
 
-    <style>
+  
+}
+<style>
         .price-position{
             bottom: 5px;
             right: 10px;
         }
+        .product-cart-title{
+            overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2;
+           line-clamp: 2; 
+   -webkit-box-orient: vertical;
+        }
     </style> 
-}
 
 
 <div class="dashboard-ecommerce">
@@ -182,7 +191,7 @@
                             <div class="product-thumbnail">
                                 <div class="product-img-head product-card-comp position-relative">
                                 @{
-                                    /*
+                                    
                                     <div class="position-absolute">
                                         @{
                                             if (item.Stock == 0)
@@ -194,16 +203,15 @@
                                             <div class="m-2 py-1 px-3 bg-success text-white">In Stock</div>
                                             }
                                         }
+                                      
                                     </div>
+                                    /*
                                     <div class="position-absolute price-position font-bold text-danger font-22">
                                            $ @Html.DisplayFor(modelItem => item.Price)
                                     </div>
                                     */
                                     }
                                     
-                                    <div class="position-absolute bookmark-icon">
-                                    <i class="fas fa-bookmark font-22 pr-2"></i>
-                                    </div>
                                     <a asp-action="Details" asp-route-id="@item.Id" >
                                     <div class="w-75 m-auto product-card-img">
                                         <img src="@ViewBag.AdminWebUrl/@item.FirstImageUrl"
@@ -217,7 +225,6 @@
                                         <a asp-action="Details" asp-route-id="@item.Id" class="product-title product-cart-title">
                                             @Html.DisplayFor(modelItem => item.Title)
                                         </a>
-                                        <br/>
                                         <div class="product-rating d-inline-block">
                                             <i class="fa fa-fw fa-star"></i>
                                             <i class="fa fa-fw fa-star"></i>
@@ -227,9 +234,9 @@
                                         </div>
                                         <div class="row px-3 pt-2 align-content-center justify-content-between">
                                             <h3 class="text-danger mt-1">$ @Html.DisplayFor(modelItem => item.Price)</h3>
-                                            <a asp-controller="cart" asp-action="buy" asp-route-id="@item.Id">
-                                            <div class="subtract-w align-content-center">
-                                                <img src="~/assets/icons/subtract-w.png" class="w-100 h-100 p-2"/>
+                                            <a href="#">
+                                            <div class=" text-dark bookmark-icon">
+                                                <i class="fas fa-bookmark font-22 pr-2"></i>
                                             </div>    
                                             </a>
                                         </div>
