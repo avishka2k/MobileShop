@@ -306,6 +306,22 @@ namespace ShopAdmin.Migrations
                     b.ToTable("Subscribers");
                 });
 
+            modelBuilder.Entity("ShopAdmin.Models.VisitCounts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("VisitCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VisitCounts");
+                });
+
             modelBuilder.Entity("ShopAdmin.Models.CartItem", b =>
                 {
                     b.HasOne("ShopAdmin.Models.Order", "Order")

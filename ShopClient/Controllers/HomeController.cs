@@ -10,10 +10,12 @@ namespace ShopClient.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ProductDbContext _context;
-        public HomeController(ILogger<HomeController> logger, ProductDbContext context)
+        private readonly VisitCountService _visitCountService;
+        public HomeController(ILogger<HomeController> logger, ProductDbContext context, VisitCountService visitCountService)
         {
             _logger = logger;
             _context = context;
+            _visitCountService = visitCountService;
         }
 
         public IActionResult Index()
@@ -25,6 +27,8 @@ namespace ShopClient.Controllers
             List<CartItem> cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
             ViewBag.cart = cart;
             ViewBag.ProductForFooter = product;
+            int visitCount = _visitCountService.GetVisitCount();
+            ViewBag.VisitCount = visitCount;
             return View(category);
         }
 

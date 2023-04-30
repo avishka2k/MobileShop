@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using ShopAdmin.Data;
+using ShopAdmin.Helpers;
 
 namespace ShopAdmin
 {
@@ -19,7 +20,7 @@ namespace ShopAdmin
                 option.ExpireTimeSpan = TimeSpan.FromDays(30);
                 });
             builder.Services.AddDbContext<ProductDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ProductDbContext")));
-
+            builder.Services.AddScoped<VisitCountService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

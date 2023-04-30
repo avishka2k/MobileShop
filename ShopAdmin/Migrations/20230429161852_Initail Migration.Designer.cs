@@ -12,8 +12,8 @@ using ShopAdmin.Data;
 namespace ShopAdmin.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20230429082633_Initial Migration")]
-    partial class InitialMigration
+    [Migration("20230429161852_Initail Migration")]
+    partial class InitailMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -307,6 +307,22 @@ namespace ShopAdmin.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Subscribers");
+                });
+
+            modelBuilder.Entity("ShopAdmin.Models.VisitCounts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("VisitCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VisitCounts");
                 });
 
             modelBuilder.Entity("ShopAdmin.Models.CartItem", b =>
