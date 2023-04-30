@@ -112,7 +112,7 @@
        <nav class="navbar navbar-light">
       <div class="container-fluid">
           <div class=" align-content-center">
-             <a class="navbar-brand">MobiShop</a>
+             <a asp-controller="Home" asp-action="Index" class="navbar-brand">MobiShop</a>
              <a asp-controller="Products" asp-action="Index" class="font-18">Shop</a>
           </div>
         @using (Html.BeginForm("Search", "Products", FormMethod.Get))

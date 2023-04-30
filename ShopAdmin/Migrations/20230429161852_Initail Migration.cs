@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ShopClient.Migrations
+namespace ShopAdmin.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitailMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -77,6 +77,19 @@ namespace ShopClient.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Subscribers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VisitCounts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VisitCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VisitCounts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -256,6 +269,9 @@ namespace ShopClient.Migrations
 
             migrationBuilder.DropTable(
                 name: "Subscribers");
+
+            migrationBuilder.DropTable(
+                name: "VisitCounts");
 
             migrationBuilder.DropTable(
                 name: "Orders");

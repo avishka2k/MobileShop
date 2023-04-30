@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using ShopAdmin.Data;
 using ShopAdmin.Models;
 using System.Diagnostics;
+using ShopAdmin.Helpers;
 
 namespace ShopAdmin.Controllers
 {
@@ -14,11 +15,13 @@ namespace ShopAdmin.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ProductDbContext _dbcontext;
+        private readonly VisitCountService _visitCountService;
 
-        public HomeController(ILogger<HomeController> logger, ProductDbContext context)
+        public HomeController(ILogger<HomeController> logger, ProductDbContext context, VisitCountService visitCountService)
         {
             _logger = logger;
             _dbcontext = context;
+            _visitCountService = visitCountService;
         }
 
         public IActionResult Index()
@@ -31,6 +34,8 @@ namespace ShopAdmin.Controllers
                 .Take(6)
                 .Join(_dbcontext.Products, p => p.ProductId, prod => prod.Id, (p, prod) => new { Product = prod, Quantity = p.Quantity });
             ViewBag.TopSellingProducts = topSellingProducts;
+            var subCount = _dbcontext.Subscribers.Count();
+            ViewBag.SubCount = subCount;
 
             var homeView = new HomeViewModel
             {
@@ -40,6 +45,10 @@ namespace ShopAdmin.Controllers
 
             ViewBag.RevenueIncrease = RevenueIncrease();
             ViewBag.OrderIncrease = OrderIncrease();
+            ViewBag.SubIncrease = SubIncrease();
+
+            int visitCount = _dbcontext.VisitCounts.First().VisitCount;
+            ViewBag.VisitCount = visitCount;
 
             return View(homeView);
         }
@@ -72,6 +81,23 @@ namespace ShopAdmin.Controllers
             {
                 double revenueIncrease = ((todayOrders - yesterdayOrders) / yesterdayOrders) * 100;
                 return revenueIncrease;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        private double SubIncrease()
+        {
+            double todaySub = _dbcontext.Subscribers.Where(o => o.DateTime.Date == DateTime.Today).ToList().Count;
+
+            double yesterdaySub = _dbcontext.Subscribers.Where(o => o.DateTime.Date == DateTime.Today.AddDays(-1)).ToList().Count;
+
+            if (todaySub > 0 && yesterdaySub > 0)
+            {
+                double subIncrease = ((todaySub - yesterdaySub) / yesterdaySub) * 100;
+                return subIncrease;
             }
             else
             {

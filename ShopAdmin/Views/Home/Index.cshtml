@@ -99,10 +99,21 @@
                         <div class="card-body">
                             <h5 class="text-muted">Visitor</h5>
                             <div class="metric-value d-inline-block">
-                                <h1 class="mb-1">13000</h1>
+                                <h1 class="mb-1">@ViewBag.VisitCount</h1>
                             </div>
                             <div class="metric-label d-inline-block float-right text-success font-weight-bold">
-                                <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span><span class="ml-1">5%</span>
+                                @{
+                                    if (ViewBag.VisitCount >= 0)
+                                    {
+                                        <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span>
+                                        <span class="ml-1 text-success">3.25%</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="icon-circle-small icon-box-xs text-danger bg-danger-light bg-danger-light"><i class="fa fa-fw fa-arrow-down"></i></span>
+                                        <span class="ml-1 text-danger">@ViewBag.SubIncrease.ToString("0.00")%</span>
+                                    }
+                                }
                             </div>
                         </div>
                     </div>
@@ -112,10 +123,21 @@
                         <div class="card-body">
                             <h5 class="text-muted">New Subscribers</h5>
                             <div class="metric-value d-inline-block">
-                                <h1 class="mb-1">1340</h1>
+                                <h1 class="mb-1">@ViewBag.SubCount</h1>
                             </div>
                             <div class="metric-label d-inline-block float-right text-danger font-weight-bold">
-                                <span class="icon-circle-small icon-box-xs text-danger bg-danger-light bg-danger-light"><i class="fa fa-fw fa-arrow-down"></i></span><span class="ml-1">4%</span>
+                                @{
+                                    if (ViewBag.SubIncrease >= 0)
+                                    {
+                                        <span class="icon-circle-small icon-box-xs text-success bg-success-light"><i class="fa fa-fw fa-arrow-up"></i></span>
+                                        <span class="ml-1 text-success">@ViewBag.SubIncrease.ToString("0.00")%</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="icon-circle-small icon-box-xs text-danger bg-danger-light bg-danger-light"><i class="fa fa-fw fa-arrow-down"></i></span>
+                                        <span class="ml-1 text-danger">@ViewBag.SubIncrease.ToString("0.00")%</span>
+                                    }
+                                }
                             </div>
                         </div>
                     </div>

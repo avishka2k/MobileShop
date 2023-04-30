@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ShopClient.Data;
+using ShopClient.Helpers;
 
 namespace ShopClient
 {
@@ -14,7 +15,7 @@ namespace ShopClient
             //builder.Services.AddDbContext<CartDbContext>(option => option.UseInMemoryDatabase("contactDb"));
             builder.Services.AddDbContext<ProductDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ProductDbContext")));
             builder.Services.AddSession();
-
+            builder.Services.AddScoped<VisitCountService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

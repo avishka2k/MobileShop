@@ -74,6 +74,10 @@ namespace ShopClient.Controllers
             model.OrderStatus = 0;
             await _context.Orders.AddAsync(model);
             _context.SaveChanges();
+            if(cart == null)
+            {
+                return NotFound();
+            }
 
             foreach (var item in cart)
             {
@@ -94,7 +98,13 @@ namespace ShopClient.Controllers
         [HttpGet]
         public IActionResult OrderConfirmation()
         {
-            return View();
+            List<CartItem> cart = SessionHelper.GetObjectFromJson<List<CartItem>>(HttpContext.Session, "cart");
+            var order = _context.Orders.Include(c => c.Carts).Take(1).OrderByDescending(p => p.Id).FirstOrDefault();
+            if (cart == null)
+            {
+                return RedirectToAction("Index", "Cart");
+            }
+            return View(order);
         }
 
     }
