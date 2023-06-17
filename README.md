@@ -32,7 +32,7 @@ Note: The database must be configured to get the full experience.
 ![Screenshot 2023-06-17 164311](https://github.com/avishka2k/MobileShop/assets/86360412/eaed3abf-14fa-44af-8f0b-1c7357553972)
 
 - Then click on Next,
-- Browse the MobileShopDb.bacpac file from your folder and click next
+- Browse the MobileShopDb.bacpac ([Download MobileShopDb.bacpac from here](https://github.com/avishka2k/MobileShop/releases/tag/v1.0.0))  file from your folder and click next
 - Click Next until finished
 - After importing the database, right-click on the server and go to properties
 
