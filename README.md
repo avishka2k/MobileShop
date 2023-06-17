@@ -13,6 +13,7 @@ This project consists of two csharp projects.
 git clone https://github.com/avishka2k/MobileShop
 cd MobileShop
 ```
+OR, Download the source code [here.](https://github.com/avishka2k/MobileShop/releases/tag/v1.0.0)
 - Click and open ShopAdmin.slh and Shopclinet.slh in ShopAdmin and ShopClient floders
 - First run ShopAdmin
 - Use the following credentials when logging into ShopAdmin.
