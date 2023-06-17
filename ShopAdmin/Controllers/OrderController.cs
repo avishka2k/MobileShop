@@ -39,5 +39,15 @@ namespace ShopAdmin.Controllers
             await _dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> SuccessOrder(int? id)
+        {
+            var order = await _dbContext.Orders.FirstOrDefaultAsync(u => u.Id == id);
+            if (order != null)
+            {
+                order.OrderStatus = 1;
+            }
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
