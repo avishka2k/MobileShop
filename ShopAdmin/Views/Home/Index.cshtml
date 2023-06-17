@@ -7,6 +7,11 @@
         position: fixed;
         width: -webkit-fill-available;
     }
+
+    .label-warning {
+        background-color: #f0ad4e;
+        color: #fff;
+    }
 </style>
 
 <div class="dashboard-wrapper dashboard-wrapperhome">
@@ -178,7 +183,18 @@
                                                     &dollar;@Html.DisplayFor(modelItem => item.TotalPrice)
                                                 </td>
                                                 <td>
-                                                    <span class="label label-success">Success Label</span>
+                                                    @if (item.OrderStatus == 0)
+                                                    {
+                                                        <span class="label label-warning">Pending</span>
+                                                    }
+                                                    else if (item.OrderStatus == 1)
+                                                    {
+                                                        <span class="label label-success">Delivered</span>
+                                                    }
+                                                    else if (item.OrderStatus == -1)
+                                                    {
+                                                        <span class="label label-danger">Canceled</span>
+                                                    }
                                                 </td>                                            
                                             </tr>
                                         }
