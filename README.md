@@ -25,7 +25,7 @@ Password: 123
 Note: The database must be configured to get the full experience.
 
 ## Database Setup
-- Open SQL Server Management Studio(SSMS)
+- Open SQL Server Management Studio(SSMS). [Get more about SSMS](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)
 - Right-click Databases on object explorer, click on 'import data-tier application'
 
 ![Screenshot 2023-06-17 164311](https://github.com/avishka2k/MobileShop/assets/86360412/eaed3abf-14fa-44af-8f0b-1c7357553972)
