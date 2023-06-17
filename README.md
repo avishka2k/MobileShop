@@ -22,6 +22,8 @@ Password: 123
 ```
 - You can get the experience of the client side by running the ShopClient.
 
+Note: The database must be configured to get the full experience.
+
 ## Database Setup
 - Open SQL Server Management Studio(SSMS)
 - Right-click Databases on object explorer, click on 'import data-tier application'
