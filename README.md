@@ -4,7 +4,7 @@ This project consists of two csharp projects.
   1. ShopClient - Customer
   2. ShopAdmin - The owner of the shop
 
-
+Video Link: https://drive.google.com/file/d/1TIs06sUtu9WZsFDqicrjlxr2VwKGcrSv/view?usp=sharing
 
 ## Installation instructions
 
